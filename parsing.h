@@ -1,4 +1,9 @@
-// List of function used to parse and transform literal equation into BTree
+//parsing.h List of function used to parse and transform literal equation into BTree
+
+# ifndef _EPIQUATION_PARSING_H_
+# define _EPIQUATION_PARSING_H_
+
+# include <stdlib.h>
 
 /*
 **	parse: get literal equation and transform it in Btree
@@ -103,3 +108,5 @@ float get_number(char *number);
 **	Return the s_variable or NULL if [variable] isn't a variable
 */
 struct s_variable *get_variable(char *variable);
+
+# endif /* _EPIQUATION_PARSING_H_ */

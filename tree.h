@@ -1,5 +1,10 @@
 //List of function used to manage a binary tree
 
+# ifndef _EPIQUATION_TREE_H_
+# define _EPIQUATION_TREE_H_
+
+# include <stdlib.h>
+
 /*
 **  enumeration used to list type of node
 */
@@ -39,3 +44,5 @@ struct s_tree *create_node(enum e_type type, void *data);
 **	free_tree free all the tree and data in
 */
 void free_tree(struct s_tree *tree);
+
+# endif /* _EPIQUATION_TREE_H_ */
