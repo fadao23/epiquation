@@ -1,5 +1,12 @@
 //List of function used to simplify a tree
 
+# ifndef _EPIQUATION_SIMPLIFY_H_
+# define _EPIQUATION_SIMPLIFY_H_
+
+# include <stdlib.h>
+
+# include "tree.h"
+
 /*
 **	simplify_plus: simplifies a tree by doing plus operation
 **		node: the current node in the tree
@@ -49,3 +56,5 @@ float is_value(struct s_tree *node);
 **
 */
 float simplify_time(struct s_tree *node, float multiplier);
+
+# endif /* _EPIQUATION_SIMPLIFY_H_ */
