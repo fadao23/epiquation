@@ -4,8 +4,8 @@
 
 void free_tree(struct s_tree *tree)
 {
-  free(tree->left);
-  free(tree->right);
+  free_tree(tree->left);
+  free_tree(tree->right);
   free(tree->data);
   free(tree);
 }
