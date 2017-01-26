@@ -3,7 +3,7 @@
 /*
  ** enumeration used to list the differents mathematical functions
  */
-enum e_function                                                                 
+enum e_function                                                       
 {
   unknow = 0,
   exp,
@@ -32,13 +32,12 @@ struct s_function
  ** Free s_function Struct
  ** Take struct s_function *function in argument
  */
-void free_fonction(struct s_function *function);
+void free_function(struct s_function *function);
 
 /* 
   ** Function for make easily s_function
   ** Take all parameters of struct s_function 
 */
-struct s_function *creat(enum e_function *func,float *para,int power,
-    float multi);
+struct s_function *creat(enum e_function *func, float *para);
 
 # endif
