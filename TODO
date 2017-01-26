@@ -1,14 +1,27 @@
 TODO : 
 
 - Fonctions ()
-	- e_num -> list ()
-	- struct s_fonction ()
-	- fonction generalise creation structure (muitplier ou puss =! 1) ()
-	- fonction Free ()
-	- fonction -> calcul ()
+        In Function.h
+	  - e_num (DONE)
+	  - struct s_function (DONE)
+	  - function for make struct s_function (muitplier ou puss =! 1) (DONE)
+	  - fonction Free (DONE)
+	  - fonction -> calcul ()
+        In function.c
+	  - struct s_function ()
+	  - function for make struct s_function (muitplier ou puss =! 1) ()
+	  - fonction Free ()
+	  - fonction -> calcul ()
+
 
 - Variables ()
-	- struct s_varaible ()
-	- fonction generalise creation structure (muitplier ou puss =! 1) ()
-	- fonction Free ()
-	- fonction -> Calcul ()
+        In variable.h
+	  - struct s_varaible ()
+	  - function for make struct (muitplier ou puss =! 1) ()
+	  - function Free ()
+	  - function -> Calcul ()
+        In varaible.c 
+	  - struct s_varaible ()
+	  - function for make struct (muitplier ou puss =! 1) ()
+	  - function Free ()
+	  - function -> Calcul ()
