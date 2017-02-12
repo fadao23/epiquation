@@ -41,26 +41,6 @@ struct s_function *init_function(enum e_function *func, float *para);
 float calcul_function(struct s_function *function);
 
 /*
-**  is_function: check if a string as a function pattern
-**    function: string to check
-**  is_function check if [function] corresponding with function pattern.
-**  Function pattern is defined with the following regex:
-**    ^[a-z]{2,}\([0-9]+(\.[0-9]+)?(,[0-9]+(\.[0-9]+)?)*\)$
-**  If pattern match, the function return 1 else it return 0.
-*/
-int is_function(char *function);
-
-/*
-**  get_function: get function from a string
-**    function: string with data
-**  get_function initialize a struct s_function variable with data stored in
-**  [function]
-**  Return the struct s_function or NULL if they are an error (unknow function
-**  or a wrong number of parameter)
-*/
-struct s_function *get_function(char *function);
-
-/*
  ** Free s_function Struct
  ** Take struct s_function *function in argument
  */

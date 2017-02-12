@@ -13,18 +13,6 @@ float calcul_function(struct s_function *function)
 	return 0;
 }
 
-int is_function(char *function)
-{
-	(void) function;
-	return 0;
-}
-
-struct s_function *get_function(char *function)
-{
-	(void) function;
-	return NULL;
-}
-
 void free_function(struct s_function *function)
 {
   free(function->function);

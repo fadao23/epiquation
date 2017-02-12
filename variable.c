@@ -1,6 +1,5 @@
 # include "variable.h"
 
-
 struct s_variable *init_variable(char name)
 {
   struct s_variable *var = malloc(sizeof(struct s_variable));
@@ -11,19 +10,12 @@ struct s_variable *init_variable(char name)
   return var;
 }
 
-
 float calcul_variable(struct s_variable *var)
 {
 	(void) var;
 	return 0;
 // differencier 4(x²) et (4x)²
 //	res = 
-}
-
-int is_variable(char *variable)
-{
-	(void) variable;
-	return 0;
 }
 
 struct s_variable *get_variable(char *variable)
@@ -37,4 +29,3 @@ void free_variable(struct s_variable *var)
 	(void) var;
   //free(var);
 }
-
