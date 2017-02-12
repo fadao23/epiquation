@@ -12,8 +12,8 @@ enum e_type
 }
 
 /*
- **	enumeration used to list the differents operands
- */
+**	enumeration used to list the differents operands
+*/
 enum e_operator
 {
   plus,
