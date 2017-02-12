@@ -1,9 +1,14 @@
-# ifndef _EPIQUATION_TREE_H_                                                    
-# define _EPIQUATION_TREE_H_
+//function.h list of function used to manage function structure
+
+# ifndef _EPIQUATION_FUNCTION_H_
+# define _EPIQUATION_FUNCTION_H_
+
+# include <stdlib.h>
+
 /*
  ** enumeration used to list the differents mathematical functions
  */
-enum e_function                                                       
+enum e_function
 {
   unknow = 0,
   exp,
@@ -12,13 +17,13 @@ enum e_function
 };
 
 
-/*                                                                              
+/*
  ** struct of function element
  **   function: Identifiant of function
  **   parameter: Optionnal array of parameter usefull for specifique function
  **   power: power of the function
  **   multiplier: multiplier of the function
- */ 
+ */
 struct s_function
 {
   enum e_function *function;
@@ -27,6 +32,33 @@ struct s_function
   float           multiplier;
 };
 
+/*
+  ** Function for make easily s_function
+  ** Take all parameters of struct s_function
+*/
+struct s_function *init_function(enum e_function *func, float *para);
+
+float calcul_function(struct s_function *function);
+
+/*
+**  is_function: check if a string as a function pattern
+**    function: string to check
+**  is_function check if [function] corresponding with function pattern.
+**  Function pattern is defined with the following regex:
+**    ^[a-z]{2,}\([0-9]+(\.[0-9]+)?(,[0-9]+(\.[0-9]+)?)*\)$
+**  If pattern match, the function return 1 else it return 0.
+*/
+int is_function(char *function);
+
+/*
+**  get_function: get function from a string
+**    function: string with data
+**  get_function initialize a struct s_function variable with data stored in
+**  [function]
+**  Return the struct s_function or NULL if they are an error (unknow function
+**  or a wrong number of parameter)
+*/
+struct s_function *get_function(char *function);
 
 /*
  ** Free s_function Struct
@@ -34,10 +66,4 @@ struct s_function
  */
 void free_function(struct s_function *function);
 
-/* 
-  ** Function for make easily s_function
-  ** Take all parameters of struct s_function 
-*/
-struct s_function *creat(enum e_function *func, float *para);
-
-# endif
+# endif /*_EPIQUATION_FUNCTION_H_*/
