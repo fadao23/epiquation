@@ -5,6 +5,8 @@
 
 # include <stdlib.h>
 
+# include "operator.h"
+
 /*
 **  enumeration used to list type of node
 */
