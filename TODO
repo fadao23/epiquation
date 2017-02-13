@@ -1,4 +1,4 @@
-TODO : 
+TODO :
 
 - Fonctions ()
         In Function.h
@@ -19,7 +19,7 @@ TODO :
 	  - function for make struct (muitplier ou puss =! 1) ()
 	  - function Free ()
 	  - function -> Calcul ()
-        In varaible.c 
+        In varaible.c
 	  - struct s_varaible ()
 	  - function for make struct (muitplier ou puss =! 1) ()
 	  - function Free ()

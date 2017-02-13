@@ -2,9 +2,12 @@
 
 struct s_function *init_function(enum e_function *func,float *para)
 {
-	(void) func;
-	(void) para;
-	return NULL;
+  struct s_function *fun = malloc(sizeof(struct s_function));
+  fun->function = func;
+  fun->parameter = para;
+  fun->power = 1;
+  fun->multiplier = 1;
+	return fun;
 }
 
 float calcul_function(struct s_function *function)
