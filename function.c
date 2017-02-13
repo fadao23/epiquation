@@ -27,7 +27,7 @@ enum e_function *get_function(char *function)
   else if (strcmp(function, "sin") == 0)
       *name = SIN;
   else
-      *name = UNKNOW;
+      *name = UNKNOW_F;
   return name;
 }
 

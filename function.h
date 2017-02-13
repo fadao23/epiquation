@@ -11,7 +11,7 @@
  */
 enum e_function
 {
-  UNKNOW = 0,
+  UNKNOW_F,
   EXP,
   LN,
   SQRT,
