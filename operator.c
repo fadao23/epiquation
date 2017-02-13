@@ -2,12 +2,60 @@
 
 int get_pos_operator(char *equation)
 {
-	(void) equation;
-	return 0;
+  int pile = 0, len = strlen(equation), pos = -1, i;
+	enum e_operator op = UNKNOW;
+  chqr c;
+  for (i = 0; i < len; ++i)
+  {
+    c = *(equation + i);
+    if (c == '(')
+      pile++;
+    else if (c == ')')
+      pile--;
+    else if (c == '+' && pile == 0 && PLUS > op)
+    {
+      op = PLUS;
+      pos = i;
+    }
+    else if (c == '-' && pile == 0 && MINUS > op)
+    {
+      op = MINUS;
+      pos = i;
+    }
+    else if (c == '/' && pile == 0 && SLASH > op)
+    {
+      op = SLASH;
+      pos = i;
+    }
+    else if (c == '*' && pile == 0 && TIME > op)
+    {
+      op = TIME;
+      pos = i;
+    }
+  }
+  return i;
 }
 
 enum e_operator *get_operator(int num_operator)
 {
-	(void) num_operator;
-	return NULL;
+	enum e_operator *op = malloc(sizeof (enum e_operator));
+  switch(num_operator)
+  {
+    case '+':
+      *op = PLUS;
+      break;
+    case '-':
+      *op = MINUS;
+      break;
+    case '*':
+      *op = TIME;
+      break;
+    case '/':
+      *op = SLASH;
+      break;
+    default:
+      *op = UNKNOW;
+      break;
+  }
+	return *op;
 }

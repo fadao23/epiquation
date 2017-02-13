@@ -4,17 +4,19 @@
 # define _EPIQUATION_OPERATOR_H_
 
 # include <stdlib.h>
+# include <string.h>
 
 /*
 ** enum used to list operands
 */
 enum e_operator
 {
-	plus,
-	minus,
-	time,
-	slash,
-	equal
+  UNKNOW = 0,
+	MINUS,
+	PLUS,
+	SLASH,
+	TIME,
+	EQUAL
 };
 
 /*
