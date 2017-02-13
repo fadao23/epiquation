@@ -12,10 +12,10 @@
 */
 enum e_type
 {
-	operand,
-	function,
-	variable,
-	value
+	OPERAND,
+	FUNCTION,
+  VARIABLE,
+  VALUE
 };
 
 /*
