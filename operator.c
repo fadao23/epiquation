@@ -53,6 +53,9 @@ enum e_operator *get_operator(int num_operator)
     case '/':
       *op = SLASH;
       break;
+    case '=':
+      *op = EQUAL;
+      break;
     default:
       *op = UNKNOW;
       break;

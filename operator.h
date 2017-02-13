@@ -11,12 +11,12 @@
 */
 enum e_operator
 {
-  UNKNOW = 0,
-	MINUS,
-	PLUS,
+  UNKNOW,
+  EQUAL,
 	SLASH,
 	TIME,
-	EQUAL
+	PLUS,
+	MINUS
 };
 
 /*
