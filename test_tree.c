@@ -8,7 +8,7 @@ void tree_to_string(struct s_tree *tree)
 
 void _tree_to_string(struct s_tree *tree)
 {
-  switch(tree->type)
+  switch (tree->type)
   {
     case OPERAND:
       printf("(");
@@ -19,6 +19,14 @@ void _tree_to_string(struct s_tree *tree)
       break;
     case FUNCTION:
       function_to_string(*(((struct s_function*)tree->data)->function));
+      printf("(");
+      _tree_to_string(tree->left);
+      if(tree->right != NULL)
+      {
+        printf(",");
+        _tree_to_string(tree->right);
+      }
+      printf(")");
       break;
     case VARIABLE:
       printf("%c", ((struct s_variable*)tree->data)->name);
@@ -31,12 +39,32 @@ void _tree_to_string(struct s_tree *tree)
 
 void function_to_string(enum e_function function)
 {
-  (void) function;
+  switch (function)
+  {
+    case EXP:
+      printf("exp");
+      break;
+    case LN:
+      printf("ln");
+      break;
+    case SQRT:
+      printf("sqrt");
+      break;
+    case POW:
+      printf("pow");
+      break;
+    case COS:
+      printf("cos");
+      break;
+    case SIN:
+      printf("sin");
+      break;
+  }
 }
 
 void operand_to_string(enum e_operator operand)
 {
-  switch(operand)
+  switch (operand)
   {
     case PLUS:
       printf("+");
