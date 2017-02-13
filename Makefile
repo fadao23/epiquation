@@ -1,6 +1,6 @@
 # Makefile
  
-CC=gcc
+CC=gcc -lm
 CPPFLAGS=
 CFLAGS= -Wall -Wextra -std=c99 -O0 -g3
 LDFLAGS=

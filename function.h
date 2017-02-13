@@ -4,16 +4,20 @@
 # define _EPIQUATION_FUNCTION_H_
 
 # include <stdlib.h>
-
+# include <math.h>
+# include <string.h>
 /*
  ** enumeration used to list the differents mathematical functions
  */
 enum e_function
 {
-  unknow = 0,
-  exp,
-  ln2,
-  sqrt
+  UNKNOW = 0,
+  EXP,
+  LN,
+  SQRT,
+  POW,
+  COS,
+  SIN
 };
 
 /*
@@ -26,7 +30,7 @@ enum e_function
 struct s_function
 {
   enum e_function *function;
-  float           *parameter;
+  float           parameter;
   int             power;
   float           multiplier;
 };
@@ -35,11 +39,11 @@ struct s_function
   ** Function for make easily s_function
   ** Take all parameters of struct s_function
 */
-struct s_function *init_function(enum e_function *func, float *para);
+struct s_function *init_function(enum e_function *func, float para);
 
-enum e_function get_function(char *function);
+enum e_function *get_function(char *function);
 
-float calcul_function(struct s_function *function);
+float calcul_function(struct s_function *function, float val);
 
 /*
  ** Free s_function Struct

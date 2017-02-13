@@ -4,7 +4,7 @@
 # define _EPIQUATION_VARIABLE_H_
 
 # include <stdlib.h>
-
+# include <math.h>
 /*
  ** struct of variable element
  **		name : Name of the variable
@@ -13,7 +13,7 @@
  */
 struct          s_variable
 {
-  char          name;
+  char          *name;
   int           power;
   float         mult;
 };
@@ -23,13 +23,13 @@ struct          s_variable
  ** initialise the structure of the variable
  **
 */
-struct s_variable *init_variable(char name);
+struct s_variable *init_variable(char *name);
 
 /*
  ** Apply the power and the multiplier of the variable
  **		to a float result
  */
-float calcul_variable(struct s_variable *var);
+float calcul_variable(struct s_variable *var, float val);
 
 /*
 ** Free s_variable struct
