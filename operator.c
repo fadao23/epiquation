@@ -4,7 +4,7 @@ int get_pos_operator(char *equation)
 {
   int pile = 0, len = strlen(equation), pos = -1, i;
 	enum e_operator op = UNKNOW;
-  chqr c;
+  char c;
   for (i = 0; i < len; ++i)
   {
     c = *(equation + i);
@@ -33,7 +33,7 @@ int get_pos_operator(char *equation)
       pos = i;
     }
   }
-  return i;
+  return pos;
 }
 
 enum e_operator *get_operator(int num_operator)
@@ -57,5 +57,5 @@ enum e_operator *get_operator(int num_operator)
       *op = UNKNOW;
       break;
   }
-	return *op;
+	return op;
 }

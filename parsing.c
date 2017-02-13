@@ -20,7 +20,7 @@ struct s_tree *parse(char *equation)
 		strncpy(sub_string, equation, len);
 		type = operand;
 		operator = malloc(sizeof (enum e_operator));
-		*operator = equal;
+		*operator = EQUAL;
 		tree = create_node(type, operator);
 		tree->left = _parse(sub_string);
 		free(sub_string);
