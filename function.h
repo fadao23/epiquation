@@ -4,7 +4,7 @@
 # define _EPIQUATION_FUNCTION_H_
 
 # include <stdlib.h>
-
+# include <math.h>
 /*
  ** enumeration used to list the differents mathematical functions
  */
@@ -42,7 +42,7 @@ struct s_function *init_function(enum e_function *func, float *para);
 
 enum e_function *get_function(char *function);
 
-float calcul_function(struct s_function *function);
+float calcul_function(struct s_function *function, float val);
 
 /*
  ** Free s_function Struct

@@ -40,10 +40,31 @@ enum e_function *get_function(char *function)
   return name;
 }
 
-float calcul_function(struct s_function *function)
+float calcul_function(struct s_function *function, float val)
 {
-  (void) function;
-  return 0;
+  float res = 0;
+  switch (*function->function)
+  {
+    case EXP:
+      res = exp(val);
+      break;
+    case LN:
+      res = log(val);
+      break;
+    case SQRT:
+      res = sqrt(val);
+      break;
+    case COS:
+      res = cos(val);
+      break;
+    case SIN:
+      res = sin(val);
+      break;
+    default:
+      res = 0;
+      break;
+  }
+  return pow(res, function->power);
 }
 
 void free_function(struct s_function *function)
