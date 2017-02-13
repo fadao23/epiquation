@@ -4,10 +4,10 @@
 void queue_init(struct queue *queue)
 {
   queue->store = NULL;
-  queue->size = 0;
+  queue->sum = 0;
 }
 
-void queue_push(struct queue *queue, void *elm)
+void queue_push(struct queue *queue, struct s_tree *elm)
 {
   struct list *tmp = NULL;
 

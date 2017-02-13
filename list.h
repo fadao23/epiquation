@@ -17,7 +17,7 @@ struct list {
  */
 struct queue {
   struct list *store;
-  int       sum;
+  int         sum;
 };
 
 /*
@@ -29,7 +29,7 @@ void queue_init(struct queue *queue);
 /*
  * queue_push(queue, elm) push elm
  */
-void queue_push(struct queue *queue, void *elm);
+void queue_push(struct queue *queue, struct s_tree *elm);
 
 /*
  * queue_pop(queue) pop the next element (FIFO order)
