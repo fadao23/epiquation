@@ -10,10 +10,13 @@
  */
 enum e_function
 {
-  unknow = 0,
-  exp,
-  ln2,
-  sqrt
+  UNKNOW = 0,
+  EXP,
+  LN,
+  SQRT,
+  POW,
+  COS,
+  SIN
 };
 
 /*
@@ -37,7 +40,7 @@ struct s_function
 */
 struct s_function *init_function(enum e_function *func, float *para);
 
-enum e_function get_function(char *function);
+enum e_function *get_function(char *function);
 
 float calcul_function(struct s_function *function);
 
