@@ -1,17 +1,17 @@
 TODO :
 
-- Fonctions ()
+- Fonctions (DONE)
         In Function.h
 	  - e_num (DONE)
 	  - struct s_function (DONE)
 	  - function for make struct s_function (muitplier ou puss =! 1) (DONE)
 	  - fonction Free (DONE)
-	  - fonction -> calcul ()
+	  - fonction -> calcul (DONE)
         In function.c
-	  - function for make struct s_function (muitplier ou puss =! 1) ()
+	  - function for make struct s_function (muitplier ou puss =! 1) (DONE)
 	  - fonction Free (DONE)
-	  - fonction -> calcul ()
-
+	  - fonction -> calcul (DONE)
+Ps : SQRT n-iemes not menage
 
 - Variables ()
         In variable.h
