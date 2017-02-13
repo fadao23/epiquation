@@ -1,6 +1,7 @@
 # include "function.h"
 
-struct s_function *init_function(enum e_function *func,float *para)
+
+struct s_function *init_function(enum e_function *func,float para)
 {
   struct s_function *fun = malloc(sizeof(struct s_function));
   fun->function = func;
@@ -13,30 +14,20 @@ struct s_function *init_function(enum e_function *func,float *para)
 enum e_function *get_function(char *function)
 {
   enum e_function *name = malloc(sizeof(enum e_function));
-  switch (*function)
-  {
-    case EXP:
+  if ( strcmp(function,"exp") == 0)
       *name = EXP;
-      break;
-    case LN:
+  else if (strcmp(function,"ln") == 0)
       *name = LN;
-      break;
-    case SQRT:
+  else if (strcmp(function, "sqrt") == 0)
       *name = SQRT;
-      break;
-    case POW:
+  else if (strcmp(function, "pow") == 0)
       *name = POW;
-      break;
-    case COS:
+  else if (strcmp(function, "cos") == 0)
       *name = COS;
-      break;
-    case SIN:
+  else if (strcmp(function, "sin") == 0)
       *name = SIN;
-      break;
-    default:
+  else
       *name = UNKNOW;
-      break;
-  }
   return name;
 }
 
@@ -51,7 +42,7 @@ float calcul_function(struct s_function *function, float val)
     case LN:
       res = log(val);
       break;
-    case SQRT:
+    case SQRT:  //racine n-ieme powf(x, 1/n)
       res = sqrt(val);
       break;
     case COS:
@@ -60,16 +51,18 @@ float calcul_function(struct s_function *function, float val)
     case SIN:
       res = sin(val);
       break;
+    case POW:
+      res = pow(val,function->parameter);
+      break;
     default:
       res = 0;
       break;
   }
-  return pow(res, function->power);
+  return function->multiplier * pow(res, function->power);
 }
 
 void free_function(struct s_function *function)
 {
   free(function->function);
-  free(function->parameter);
   free(function);
 }
