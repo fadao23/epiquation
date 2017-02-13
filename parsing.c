@@ -5,8 +5,6 @@ struct s_tree *parse(char *equation)
 	char 						*rang, *sub_string;
 	int 						len;
 	struct s_tree 	*tree = NULL;
-	enum e_operator *operator;
-	enum e_type			type;
 
 	rang = strchr(equation, '=');
 	if (rang == NULL)
@@ -15,17 +13,17 @@ struct s_tree *parse(char *equation)
 		err(1, "2 or more symbole equal"); /* ERROR 2 or more = */
 	else
 	{
-		len = equation - rang;
+    tree = build_operator(*(rang));
+
+    len = rang - equation;
 		sub_string = calloc(len + 1, sizeof (char));
 		strncpy(sub_string, equation, len);
-		type = operand;
-		operator = malloc(sizeof (enum e_operator));
-		*operator = EQUAL;
-		tree = create_node(type, operator);
 		tree->left = _parse(sub_string);
 		free(sub_string);
-		sub_string = calloc(strlen(equation) - len + 1, sizeof (char));
-		tree->right = _parse(sub_string);
+
+    sub_string = calloc(strlen(equation) - len + 1, sizeof (char));
+		strcpy(sub_string, rang + 1);
+    tree->right = _parse(sub_string);
 		free(sub_string);
 	}
 	return tree;
@@ -50,13 +48,13 @@ struct s_tree *_parse(char *equation)
 		tree->right = _parse(sub_string);
 		free(sub_string);
 	}
-	else if (comp_regex(equation, "^[a-z]{2,}\\([0-9a-z+\\-*\\/().]+\
-		(,[0-9a-z+\\-*\\/().]+)?\\)$"))//Function
+	else if (comp_regex(equation,
+  "^[a-z]{2,}\\([0-9a-z\\+-\\*/().]+(,[0-9a-z\\+-\\*/().]+)?\\)$"))//Function
 	{
 		tree = build_function(equation);
 		// build subtree
 	}
-	else if (comp_regex(equation, "^\\([0-9a-z,+\\-*\\/().]+\\)$"))//parenthesys
+	else if (comp_regex(equation, "^\\([0-9a-z,\\+-\\*/().]+\\)$"))//parenthesys
 	{
 		sub_string = calloc(strlen(equation) - 1, sizeof (char));
 		strncpy(sub_string, equation + 1, strlen(equation) - 2);
@@ -93,11 +91,13 @@ char *clean_string(char *string)
 int comp_regex(char *string, char *reg)
 {
  	regex_t regex;
-	int 		err_reg;
-	err_reg = regcomp(&regex, reg, 0);
+	int 		err_reg = 0;
+	err_reg = regcomp(&regex, reg, REG_NOSUB | REG_EXTENDED | REG_NEWLINE);
 	if (err_reg)
-		err(1, "Error initialising function regex");
-	err_reg = regexec(&regex, string, 0, NULL, 0);
+  {
+  err(1, "Error initialising function regex");
+	}
+  err_reg = regexec(&regex, string, 0, NULL, 0);
 	if (!err_reg)
 		return 1;
 	else if (err_reg == REG_NOMATCH)
@@ -109,7 +109,7 @@ int comp_regex(char *string, char *reg)
 struct s_tree *build_operator(char oper)
 {
 	struct s_tree *node = malloc(sizeof (struct s_tree));
-	node->type = operand;
+	node->type = OPERAND;
 	node->data = get_operator(oper);
 	return node;
 }
@@ -118,7 +118,7 @@ struct s_tree *build_function(char *func)
 {
   (void)func;
 	struct s_tree *node = malloc(sizeof (struct s_tree));
-	node->type = function;
+	node->type = FUNCTION;
   //FIX IT
 	return NULL;
 }
@@ -126,7 +126,7 @@ struct s_tree *build_function(char *func)
 struct s_tree *build_variable(char *var)
 {
 	struct s_tree *node = malloc(sizeof (struct s_tree));
-	node->type = variable;
+	node->type = VARIABLE;
 	node->data = init_variable(*var);
   return node;
 }
@@ -136,7 +136,7 @@ struct s_tree *build_number(char *number)
 	struct s_tree *node = malloc(sizeof (struct s_tree));
 	float *res = malloc(sizeof (float));
 	sscanf(number, "%f", res);
-	node->type = value;
+	node->type = VALUE;
 	node->data = res;
 	return node;
 }

@@ -3,6 +3,7 @@
 # ifndef _EPIQUATION_PARSING_H_
 # define _EPIQUATION_PARSING_H_
 
+# include <sys/types.h>
 # include <err.h>
 # include <regex.h>
 # include <stdlib.h>
