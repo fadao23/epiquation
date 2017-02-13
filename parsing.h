@@ -3,8 +3,11 @@
 # ifndef _EPIQUATION_PARSING_H_
 # define _EPIQUATION_PARSING_H_
 
+# include <err.h>
+# include <regex.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdio.h>
 
 # include "tree.h"
 # include "variable.h"
@@ -43,14 +46,32 @@ struct s_tree *_parse(char *equation);
 char *clean_string(char *string);
 
 /*
-**	is_number: check if a string is a number
-**		number: string to check
-**	is_number check if [number] corresponding with number pattern.
-**	Number pattern is defined by the following regex:
-**		^[0-9]+(\.[0-9]+)?$
-**	Return 1 if pattern match else return 0
+**  comp_regex: check if a string match a regex pattern
+**    string: string to check
+**		reg: regex expression
+**  comp_regex return 1 if [string] match with [reg] pattern, 0 otherwise. An
+**	error can be throw
 */
-int is_number(char *number);
+int comp_regex(char *string, char *reg);
+
+/*
+**  get_function: get function from a string
+**    function: string with data
+**  get_function initialize a struct s_function variable with data stored in
+**  [function]
+**  Return the struct s_function or NULL if they are an error (unknow function
+**  or a wrong number of parameter)
+*/
+struct s_tree *build_function(char *function);
+
+/*
+**  get_variable: initialise a s_variable
+**    variable: the string with data
+**  get_variable check if [variable] is a variable and initialize a struct
+**  s_variable with data in string.
+**  Return the s_variable or NULL if [variable] isn't a variable
+*/
+struct s_tree *build_variable(char *var);
 
 /*
 **	get_number: get number from a string
@@ -58,6 +79,6 @@ int is_number(char *number);
 **	is_number transforme [number] into float
 **	Return the float value
 */
-float get_number(char *number);
+struct s_tree *build_number(char *number);
 
 # endif /* _EPIQUATION_PARSING_H_ */

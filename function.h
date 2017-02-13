@@ -16,7 +16,6 @@ enum e_function
   sqrt
 };
 
-
 /*
  ** struct of function element
  **   function: Identifiant of function
@@ -37,6 +36,8 @@ struct s_function
   ** Take all parameters of struct s_function
 */
 struct s_function *init_function(enum e_function *func, float *para);
+
+enum e_function get_function(char *function);
 
 float calcul_function(struct s_function *function);
 
