@@ -34,6 +34,7 @@ struct s_tree *_parse(char *equation)
 	char 						*sub_string;
 	int 						pos = get_pos_operator(equation);
 	struct s_tree 	*tree;
+  size_t lgth;
 	if (pos != -1)
 	{
 		tree = build_operator(*(equation + pos));
@@ -51,9 +52,28 @@ struct s_tree *_parse(char *equation)
 	else if (comp_regex(equation,
   "^[a-z]{2,}\\([0-9a-z\\+-\\*/().]+(,[0-9a-z\\+-\\*/().]+)?\\)$"))//Function
 	{
-		tree = build_function(equation);
-		// build subtree
-	}
+    lgth = strcspn(equation, "(");
+    sub_string = calloc(lgth + 1, sizeof (char));
+    strncpy(sub_string, equation, lgth);
+		tree = build_function(sub_string);
+    free(sub_string);
+    equation += lgth + 1;
+    *(equation + strlen(equation) - 1) = '\0';
+    lgth = strcspn(equation, ",");
+    if(lgth != strlen(equation))
+    {
+      sub_string = calloc(strlen(equation + lgth + 1) + 1, sizeof (char));
+      strcpy(sub_string, equation +lgth + 1);
+      tree->right = _parse(sub_string);
+      free(sub_string);
+    }
+    else
+      tree->right = NULL;
+	  sub_string = calloc(lgth, sizeof (char));
+    strncpy(sub_string, equation, lgth);
+    tree->left = _parse(sub_string);
+    free(sub_string);
+  }
 	else if (comp_regex(equation, "^\\([0-9a-z,\\+-\\*/().]+\\)$"))//parenthesys
 	{
 		sub_string = calloc(strlen(equation) - 1, sizeof (char));
@@ -85,7 +105,7 @@ char *clean_string(char *string)
 		else if ((c >= '(' && c <= '9') || (c >= 'a' && c <= 'z') || c == '=')
 			*(new_s + cpt++) = c;
 	}
-	return realloc(new_s, cpt * sizeof (char));
+	return new_s;
 }
 
 int comp_regex(char *string, char *reg)
@@ -116,11 +136,10 @@ struct s_tree *build_operator(char oper)
 
 struct s_tree *build_function(char *func)
 {
-  (void)func;
 	struct s_tree *node = malloc(sizeof (struct s_tree));
 	node->type = FUNCTION;
-  //FIX IT
-	return NULL;
+	node->data = init_function(get_function(func), 0);
+  return node;
 }
 
 struct s_tree *build_variable(char *var)
