@@ -13,7 +13,7 @@
  */
 struct          s_variable
 {
-  char          *name;
+  char          name;
   int           power;
   float         mult;
 };
@@ -23,13 +23,15 @@ struct          s_variable
  ** initialise the structure of the variable
  **
 */
-struct s_variable *init_variable(char *name);
+struct s_variable *init_variable(char name);
 
 /*
  ** Apply the power and the multiplier of the variable
  **		to a float result
  */
 float calcul_variable(struct s_variable *var, float val);
+
+int are_same(struct s_variable *var1, struct s_variable *var2);
 
 /*
 ** Free s_variable struct
