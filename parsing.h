@@ -55,29 +55,30 @@ char *clean_string(char *string);
 int comp_regex(char *string, char *reg);
 
 /*
-**  get_function: get function from a string
+**  build_operator: get node from an operator char
+**    [oper]: char with operator
+**  Return the node containing [oper] information
+*/
+struct s_tree *build_operator(char oper);
+
+/*
+**  build_function: get node from a function string
 **    function: string with data
-**  get_function initialize a struct s_function variable with data stored in
-**  [function]
-**  Return the struct s_function or NULL if they are an error (unknow function
-**  or a wrong number of parameter)
+**  Return the struct s_tree containing function information
 */
 struct s_tree *build_function(char *function);
 
 /*
-**  get_variable: initialise a s_variable
+**  build_variable: get node from a variable string
 **    variable: the string with data
-**  get_variable check if [variable] is a variable and initialize a struct
-**  s_variable with data in string.
-**  Return the s_variable or NULL if [variable] isn't a variable
+**  Return the struct s_tree containing variable information
 */
 struct s_tree *build_variable(char *var);
 
 /*
-**	get_number: get number from a string
+**	build_number: get node from a number string
 **		number: string with a number
-**	is_number transforme [number] into float
-**	Return the float value
+**	Return the struct s_tree containing number information
 */
 struct s_tree *build_number(char *number);
 
