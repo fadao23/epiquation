@@ -59,7 +59,10 @@ void function_to_string(enum e_function function)
     case SIN:
       printf("sin");
       break;
-  }
+  	default:
+			printf("Unknown");
+			break;
+	}
 }
 
 void operand_to_string(enum e_operator operand)
