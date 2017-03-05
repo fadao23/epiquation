@@ -1,5 +1,6 @@
 # include "simplify.h"
 
+/*
 float simplify_plus(struct s_tree *node, struct s_tree *tmp)
 {
   if (node->type == VALUE)
@@ -12,25 +13,27 @@ float simplify_plus(struct s_tree *node, struct s_tree *tmp)
   }
   return res;
 }
-
+*/
 
 void simplify_minus(struct s_tree *node, int coef)
-}
+{
 	if (node->type == OPERAND)
 	{
-		if (*node->data == MINUS)
+		if (*((enum e_operator*) node->data) == MINUS)
 		{
-			simplify_minus(tree->right, coef * (-1));
-			*node->data = PLUS;
+			simplify_minus(node->right, coef * (-1));
+			*((enum e_operator*) node->data) = PLUS;
 		}
 		else
-			simplify_minus(tree->right, coef);
-		simplify_minus(tree->left, coef);
+			simplify_minus(node->right, coef);
+		simplify_minus(node->left, coef);
 	}
 
 	else if (node->type == VALUE)
-		*node->data *= coef;
+		*((float*) node->data) *= coef;
 
+	else if (node->type == VARIABLE)
+		((struct s_variable*) node->data)->mult *= coef;
 	else
-		node->data->multiplier *= coef;
+		((struct s_function*) node->data)->multiplier *= coef;
 }

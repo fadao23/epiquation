@@ -5,6 +5,8 @@
 
 # include <stdlib.h>
 
+# include "function.h"
+# include "variable.h"
 # include "tree.h"
 
 /*

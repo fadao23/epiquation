@@ -1,13 +1,13 @@
 # Makefile
  
-CC=gcc -lm
+CC=gcc
 CPPFLAGS=
 CFLAGS= -Wall -Wextra -std=c99 -O0 -g3
 LDFLAGS=
-LDLIBS=
+LDLIBS= -lm
  
 SRC= main.c function.c variable.c tree.c parsing.c operator.c test_tree.c\
-list.c build.c
+list.c build.c simplify.c
 OBJ= ${SRC:.c=.o}
 DEP= ${SRC:.c=.d}
  
