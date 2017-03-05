@@ -14,6 +14,7 @@
 # include "variable.h"
 # include "function.h"
 # include "operator.h"
+# include "build.h"
 
 /*
 **	parse: get literal equation and transform it in Btree
@@ -54,33 +55,5 @@ char *clean_string(char *string);
 **	error can be throw
 */
 int comp_regex(char *string, char *reg);
-
-/*
-**  build_operator: get node from an operator char
-**    [oper]: char with operator
-**  Return the node containing [oper] information
-*/
-struct s_tree *build_operator(char oper);
-
-/*
-**  build_function: get node from a function string
-**    function: string with data
-**  Return the struct s_tree containing function information
-*/
-struct s_tree *build_function(char *function);
-
-/*
-**  build_variable: get node from a variable string
-**    variable: the string with data
-**  Return the struct s_tree containing variable information
-*/
-struct s_tree *build_variable(char *var);
-
-/*
-**	build_number: get node from a number string
-**		number: string with a number
-**	Return the struct s_tree containing number information
-*/
-struct s_tree *build_number(char *number);
 
 # endif /* _EPIQUATION_PARSING_H_ */
