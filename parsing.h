@@ -8,12 +8,8 @@
 # include <regex.h>
 # include <stdlib.h>
 # include <string.h>
-# include <stdio.h>
 
 # include "tree.h"
-# include "variable.h"
-# include "function.h"
-# include "operator.h"
 # include "build.h"
 
 /*

@@ -3,6 +3,7 @@
 # ifndef _EPIQUATION_BUILD_H_
 # define _EPIQUATION_BUILD_H_
 
+# include <stdio.h>
 # include <stdlib.h>
 
 # include "tree.h"
