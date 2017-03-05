@@ -84,7 +84,7 @@ struct s_tree *_parse(char *equation)
 	{
 		tree = build_variable(equation);
 	}
-	else if (comp_regex(equation, "^[0-9]+(\\.[0.9]+)?$"))//Number
+	else if (comp_regex(equation, "^[0-9]+(\\.[0-9]+)?$"))//Number
 	{
 		tree = build_number(equation);
 	}
