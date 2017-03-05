@@ -1,6 +1,3 @@
-# ifndef _EPIQUATION_SIMPLIFY_H_
-# define _EPIQUATION_SIMPLIFY_H_
-
 # include "simplify.h"
 
 float simplify_plus(struct s_tree *node, struct s_tree *tmp)
@@ -16,4 +13,24 @@ float simplify_plus(struct s_tree *node, struct s_tree *tmp)
   return res;
 }
 
-# endif
+
+void simplify_minus(struct s_tree *node, int coef)
+}
+	if (node->type == OPERAND)
+	{
+		if (*node->data == MINUS)
+		{
+			simplify_minus(tree->right, coef * (-1));
+			*node->data = PLUS;
+		}
+		else
+			simplify_minus(tree->right, coef);
+		simplify_minus(tree->left, coef);
+	}
+
+	else if (node->type == VALUE)
+		*node->data *= coef;
+
+	else
+		node->data->multiplier *= coef;
+}
