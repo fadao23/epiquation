@@ -18,6 +18,7 @@ struct list {
 struct queue {
   struct list *store;
   int         sum;
+  size_t      size;
 };
 
 /*
@@ -35,6 +36,9 @@ void queue_push(struct queue *queue, void *elm);
  * queue_pop(queue) pop the next element (FIFO order)
  * returns NULL if the queue is empty
  */
-struct s_tree *queue_pop(struct queue *queue);
+void* queue_pop(struct queue *queue);
+
+int queue_is_empty(struct queue *queue);
+
 
 # endif

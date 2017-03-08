@@ -6,53 +6,60 @@ void queue_init(struct queue *queue)
   queue->store = malloc(sizeof(struct list));
   queue->store->tree = malloc(sizeof(struct s_tree));
   queue->sum = 0;
+  queue->size = 0;
+}
+/*
+ * queue_is_empty(queue) test for emptyness
+*/
+int queue_is_empty(struct queue *queue)
+{
+
+   return queue->size == 0;
+
 }
 
-/*void queue_push(struct queue *queue, struct s_tree *elm)
-{
-  struct list *tmp = NULL;
-
-  while(queue->store && queue->store->tree <= elm)
-  {
-    tmp = queue->store;
-    queue->store = queue->store->next;
-  }
-   tmp->next = queue->store->next;
-   queue->store->next = tmp;
-}*/
-
+/*
+ * queue_push(queue, elm) push elm
+*/
 void queue_push(struct queue *queue, void *elm)
 {
   struct list *tmp = malloc(sizeof (struct list));
   tmp->tree = malloc(sizeof(struct s_tree));
-
   tmp->tree->data = elm;
 
-  if(queue)
+  if(!queue_is_empty(queue))
+    {
+      tmp->next = queue->store->next;
+      queue->store->next = tmp;
+    }
+  else
   {
     tmp->next = tmp;
   }
-  else
-  {
-    tmp->next = queue->store->next;
-    queue->store->next = tmp;
-    //   tmp->next = tmp;
-  }
-  //queue->size += 1;
+  queue->size += 1;
   queue->store = tmp;
 }
 
-struct s_tree *queue_pop(struct queue *queue)
+/*
+ * queue_pop(queue) pop the next element (FIFO order)
+ * returns NULL if the queue is empty
+*/
+void* queue_pop(struct queue *queue)
 {
-  if(queue != NULL)
-  {
-    struct list *tmp = malloc(sizeof(struct list));
-    tmp = queue->store->next;
-    queue->store->next = tmp->next;
-    struct s_tree *test = tmp->tree;
-    free(tmp);
-    return test;
-  }
+  if (!queue_is_empty(queue))
+    {
+      struct list *tmp = malloc(sizeof (struct list));
+      tmp = queue->store->next;
+      queue->store->next = tmp->next;
+      queue->size -= 1;
+      void *data = tmp->tree->data;
+      free(tmp);
+      return data;
+    }
   else
-    return NULL;
+    {
+      return NULL;
+    }
+
+
 }
