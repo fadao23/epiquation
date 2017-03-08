@@ -3,11 +3,12 @@
 
 void queue_init(struct queue *queue)
 {
-  queue->store = NULL;
+  queue->store = malloc(sizeof(struct list));
+  queue->store->tree = malloc(sizeof(struct s_tree));
   queue->sum = 0;
 }
 
-void queue_push(struct queue *queue, struct s_tree *elm)
+/*void queue_push(struct queue *queue, struct s_tree *elm)
 {
   struct list *tmp = NULL;
 
@@ -18,8 +19,28 @@ void queue_push(struct queue *queue, struct s_tree *elm)
   }
    tmp->next = queue->store->next;
    queue->store->next = tmp;
-}
+}*/
 
+void queue_push(struct queue *queue, void *elm)
+{
+  struct list *tmp = malloc(sizeof (struct list));
+  tmp->tree = malloc(sizeof(struct s_tree));
+
+  tmp->tree->data = elm;
+
+  if(queue)
+  {
+    tmp->next = tmp;
+  }
+  else
+  {
+    tmp->next = queue->store->next;
+    queue->store->next = tmp;
+    //   tmp->next = tmp;
+  }
+  //queue->size += 1;
+  queue->store = tmp;
+}
 
 struct s_tree *queue_pop(struct queue *queue)
 {
