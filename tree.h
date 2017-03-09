@@ -6,6 +6,8 @@
 # include <stdlib.h>
 
 # include "operator.h"
+# include "variable.h"
+# include "function.h"
 
 /*
 **  enumeration used to list type of node

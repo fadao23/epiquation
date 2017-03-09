@@ -29,8 +29,15 @@ int get_prof(struct s_tree *node)
 
 void free_tree(struct s_tree *tree)
 {
+	if (tree == NULL)
+		return;
 	free_tree(tree->left);
 	free_tree(tree->right);
-	free(tree->data);
+	if (tree->type == VARIABLE)
+		free_variable(tree->data);
+	else if (tree->type == FUNCTION)
+		free_function(tree->data);
+	else
+		free(tree->data);
 	free(tree);
 }
