@@ -20,6 +20,7 @@
 */
 int has_variable(struct s_tree *tree);
 
+void _get_list(struct s_tree *node, struct list *list);
 
 float solveur(struct s_tree *tree);
 

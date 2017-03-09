@@ -46,6 +46,17 @@ float solveur(struct s_tree *tree)
 	return res;
 }
 
+void _get_list(struct s_tree *node, struct list *list)                          
+{                                                                               
+  if (node->type == OPERAND && *((enum e_operator*)node->data) == PLUS)         
+  {                                                                             
+    _get_list(node->left, list);                                                
+    _get_list(node->right, list);                                               
+  }                                                                             
+  else                                                                          
+    list_add(list, node);                                                       
+}  
+
 float calc_no_var(struct s_tree *node)
 {
 	if (node->type == FUNCTION)
