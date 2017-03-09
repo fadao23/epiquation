@@ -1,37 +1,68 @@
 # include <stdio.h>
 # include "list.h"
 
-void queue_init(struct queue *queue)
+struct list *init_list(void);
 {
-  queue->store = NULL;
-  queue->sum = 0;
-}
+  struct list *tmp = malloc(sizeof(struct list));
+  tmp->tree = malloc(sizeof(struct s_tree));
+  tmp->next = NULL;
 
-void queue_push(struct queue *queue, struct s_tree *elm)
-{
-  struct list *tmp = NULL;
-
-  while(queue->store && queue->store->tree <= elm)
-  {
-    tmp = queue->store;
-    queue->store = queue->store->next;
-  }
-   tmp->next = queue->store->next;
-   queue->store->next = tmp;
+  return tmp;
 }
 
 
-struct s_tree *queue_pop(struct queue *queue)
+void free_list(struct list *list)
 {
-  if(queue != NULL)
+  free(list->tree);
+  free(list);
+}
+
+/*
+**  list_add: add a val in list
+**    l: list to push in
+**    val: the node to push
+**  list_add add [val] after the sentinelle of [l]
+*/
+void push_list(struct list *list, struct s_tree *val)
+{
+  struct list *tmp = malloc(sizeof(struct list));
+  tmp->tree = malloc(sizeof(struct s_tree));
+  tmp->tree = val;
+
+  if(list)
   {
-    struct list *tmp = malloc(sizeof(struct list));
-    tmp = queue->store->next;
-    queue->store->next = tmp->next;
-    struct s_tree *test = tmp->tree;
-    free(tmp);
-    return test;
+    tmp->next = list->next;
+    list->next = tmp ;
   }
-  else
-    return NULL;
+  else{
+    list->next = tmp;
+    tmp->next = NULL;
+  }
+}
+
+struct s_tree *pop_list(struct list *list)
+{
+  struct s_tree *tmp = init_list();
+  struct list *pop = malloc(sizeof(struct list));
+
+  tmp = list->tree;
+  pop->next = list->next;
+  list->next = pop->next;
+
+  return tmp;
+}
+
+/*
+**  change_list: pop an element from list and push this in another
+**    prev: the list to push from
+**    next: the list to push in
+**  change_list pop the next element in [prev] and push in the next element of
+**  [next]
+*/
+void change_list(struct list *prev, struct list *next)
+{
+  struct list *tmp = init_list();
+  tmp->next->tree = pop_list(list);
+  push_list(next,tmp->next->tree);
+  free(tmp);
 }
