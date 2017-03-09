@@ -11,41 +11,47 @@ int has_variable(struct s_tree *tree)
 
 float solveur(struct s_tree *tree)
 {
-	int var_left = has_variable(tree->left);
-	int var_right = has_variable(tree->right);
-  if (var_right)
-  {
-		struct s_tree *res = get_not_var(tree->right);
-		if (res != NULL)
-			attache(&tree->left, res, (enum e_operator) tree->data); 
-  }
-}
-
-struct s_tree *get_not_var(struct s_tree **tree)
-{
-	if (*tree->type == OPERAND)
+	struct list *list_l	= malloc(sizeof (struct list));
+	struct list *list_r = malloc(sizeof (struct list));
+	struct list *li_l, *li_r;
+	float res = 0;
+	list_l->next = NULL;
+	list_r->next = NULL;
+	_get_list(tree->left, list_l);
+	_get_list(tree->right, list_r);
+	li_l = list_l;
+	li_r = list_r;
+	while (li_l->next)
 	{
-		if (!has_variable(*tree->left))
+		if (!has_variable(li_l->next->tree))
 		{
-			*tree = *tree->right;
-			return *tree->left;
+			simplify_minus(li_l->next->tree, -1);	
+			change_list(li_l, li_r);	
 		}
-		if (!has_variable(*tree->right))
+		else
+			li_l = li_l->next;
+	}
+	while (li_r->next)
+	{
+		if(has_variable(li_r->next->tree))
+			change_list(li_r, li_l);
+		else
 		{
-			*tree = *tree->left;
-			return *tree->right;
+			res += calc_no_var(pop_list(li_r));
 		}
 	}
-	return NULL;
+	free_list(list_r);
+	res = calcul_variable(list_l->next->tree->data, res);
+	free_list(list_l);
+	return res;
 }
 
-void attache(struct s_tree **node, struct s_tree *value, enum e_operator *oper)
+float calc_no_var(struct s_tree *node)
 {
-	struct s_tree *new = malloc(sizeof (struct s_tree));
-	new->type = OPERAND;
-	new->data = malloc(sizeof (enum e_operator));
-	new->data = &oper;
-	new->left = *node;
-	new->right = value;
-	*node = new;
+	if (node->type == FUNCTION)
+		return calcul_function((struct s_function*) node->data,
+		calc_no_var(node->left));
+	if (node->type == VALUE)
+		return *((float*) node->data);
+	return calc_no_var(node->left) + calc_no_var(node->right);
 }
