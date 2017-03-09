@@ -25,8 +25,8 @@ float solveur(struct s_tree *tree)
 	{
 		if (!has_variable(li_l->next->tree))
 		{
-			simplify_minus(li_l->next->tree, -1);	
-			change_list(li_l, li_r);	
+			simplify_minus(li_l->next->tree, -1);
+			change_list(li_l, li_r);
 		}
 		else
 			li_l = li_l->next;
@@ -46,16 +46,16 @@ float solveur(struct s_tree *tree)
 	return res;
 }
 
-void _get_list(struct s_tree *node, struct list *list)                          
-{                                                                               
-  if (node->type == OPERAND && *((enum e_operator*)node->data) == PLUS)         
-  {                                                                             
-    _get_list(node->left, list);                                                
-    _get_list(node->right, list);                                               
-  }                                                                             
-  else                                                                          
-    list_add(list, node);                                                       
-}  
+void _get_list(struct s_tree *node, struct list *list)
+{
+  if (node->type == OPERAND && *((enum e_operator*)node->data) == PLUS)
+  {
+    _get_list(node->left, list);
+    _get_list(node->right, list);
+  }
+  else
+    push_list(list, node);
+}
 
 float calc_no_var(struct s_tree *node)
 {
