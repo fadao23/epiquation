@@ -26,7 +26,15 @@ enum e_function *get_function(char *function)
       *name = COS;
   else if (strcmp(function, "sin") == 0)
       *name = SIN;
-  else
+  else if (strcmp(function, "tan") == 0)
+      *name = TAN;
+	else if (strcmp(function, "acos") == 0)
+      *name = ACOS;
+  else if (strcmp(function, "asin") == 0)
+      *name = ASIN;
+  else if (strcmp(function, "atan") == 0)
+      *name = ATAN;
+	else
       *name = UNKNOW_F;
   return name;
 }
@@ -37,26 +45,38 @@ float calcul_function(struct s_function *function, float val)
   switch (*function->function)
   {
     case EXP:
-      res = exp(val);
+      res = expf(val);
       break;
     case LN:
-      res = log(val);
-      break;
-    case SQRT:  //racine n-ieme powf(x, 1/n)
-      res = sqrt(val);
+      res = logf(val);
       break;
     case COS:
-      res = cos(val);
+      res = cosf(val);
       break;
+		case ACOS:
+			res = acosf(val);
+			break;
     case SIN:
-      res = sin(val);
+      res = sinf(val);
       break;
+		case ASIN:
+			res = asinf(val);
+			break;
+		case TAN:
+			res = tanf(val);
+			break;
+		case ATAN:
+			res = atanf(val);
+			break;
     case POW:
-      res = pow(val,function->parameter);
+      res = powf(val,function->parameter);
       break;
-    default:
-      res = 0;
-      break;
+   	case SQRT:
+			res = powf(val, 1 / function->parameter);
+			break;
+		default:
+      err(1,"Unknow function");
+			break;
   }
   return function->multiplier * pow(res, function->power);
 }

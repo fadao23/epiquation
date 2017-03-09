@@ -18,7 +18,11 @@ enum e_function
   SQRT,
   POW,
   COS,
-  SIN
+	ACOS,
+  SIN,
+	ASIN,
+	TAN,
+	ATAN
 };
 
 /*
