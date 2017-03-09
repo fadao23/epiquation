@@ -1,13 +1,17 @@
-# include "parsing.h"
-# include "test_tree.h"
+# include "tree.h"
+# include "build.h"
+# include "solveur.h"
 # include <stdio.h>
 
 int main()
 {
-  char *s = "pow(3 + y) + 56 * t + (5 - 9 /2 ) +34 = 5 - ln ( 4 *x + 6,3+5)";
-	char *n = clean_string(s);
-	printf("%s\n", n);
-  tree_to_string(parse(n));
-
+	struct s_tree *tree = build_operator('=');
+	tree->left = build_operator('+');
+	tree->left->left = build_variable("x");
+	((struct s_variable*)tree->left->left->data)->mult = 3;
+	tree->left->right = build_number("4");
+	tree->right = build_number("19");
+	printf("%f\n", solveur(tree));
+	free_tree(tree);
 	return 0;
 }
