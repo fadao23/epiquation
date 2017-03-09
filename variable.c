@@ -11,8 +11,7 @@ struct s_variable *init_variable(char name)
 
 float calcul_variable(struct s_variable *var, float val)
 {
-  float	res = 0;
-  return res = var->mult * pow(val, var->power);
+  return pow(val, var->power) / var->mult;
 }
 
 int are_same(struct s_variable *var1, struct s_variable *var2)
