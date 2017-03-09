@@ -53,7 +53,7 @@ struct s_tree *_parse(char *equation)
 		free(sub_string);
 	}
 	else if (comp_regex(equation,
-  "^[a-z]{2,}\\([0-9a-z\\+-\\*/().]+(,[0-9a-z\\+-\\*/().]+)?\\)$"))//Function
+  "^[a-z]{2,}\\([0-9a-z\\+-\\*/().]+(,[0-9]+)?\\)$"))//Function
 	{
     lgth = strcspn(equation, "(");
     sub_string = calloc(lgth + 1, sizeof (char));
