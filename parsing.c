@@ -40,7 +40,10 @@ struct s_tree *_parse(char *equation)
 		tree = build_operator(*(equation + pos));
 
 		sub_string = calloc(pos + 1, sizeof (char));
-		strncpy(sub_string, equation, pos);
+		if	(pos > 0)
+			strncpy(sub_string, equation, pos);
+		else
+			*sub_string = '0';
 		tree->left = _parse(sub_string);
 		free(sub_string);
 
