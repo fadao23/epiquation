@@ -6,6 +6,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <string.h>
+# include <err.h>
 
 /*
 ** enumeration used to list the differents mathematical functions
