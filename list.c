@@ -18,16 +18,6 @@ void free_list(struct list *list)
 }
 
 /*
- * queue_is_empty(queue) test for emptyness
-*/
-int queue_is_empty(struct queue *queue)
-{
-
-   return queue->size == 0;
-
-}
-
-/*
 **  list_add: add a val in list
 **    l: list to push in
 **    val: the node to push
