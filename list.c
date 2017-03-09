@@ -1,13 +1,22 @@
 # include <stdio.h>
 # include "list.h"
 
-void queue_init(struct queue *queue)
+struct list *init_list(void);
 {
-  queue->store = malloc(sizeof(struct list));
-  queue->store->tree = malloc(sizeof(struct s_tree));
-  queue->sum = 0;
-  queue->size = 0;
+  struct list *tmp = malloc(sizeof(struct list));
+  tmp->tree = malloc(sizeof(struct s_tree));
+  tmp->next = NULL;
+
+  return tmp;
 }
+
+
+void free_list(struct list *list)
+{
+  free(list->tree);
+  free(list);
+}
+
 /*
  * queue_is_empty(queue) test for emptyness
 */
@@ -19,47 +28,51 @@ int queue_is_empty(struct queue *queue)
 }
 
 /*
- * queue_push(queue, elm) push elm
+**  list_add: add a val in list
+**    l: list to push in
+**    val: the node to push
+**  list_add add [val] after the sentinelle of [l]
 */
-void queue_push(struct queue *queue, void *elm)
+void push_list(struct list *list, struct s_tree *val)
 {
-  struct list *tmp = malloc(sizeof (struct list));
+  struct list *tmp = malloc(sizeof(struct list));
   tmp->tree = malloc(sizeof(struct s_tree));
-  tmp->tree->data = elm;
+  tmp->tree = val;
 
-  if(!queue_is_empty(queue))
-    {
-      tmp->next = queue->store->next;
-      queue->store->next = tmp;
-    }
-  else
+  if(list)
   {
-    tmp->next = tmp;
+    tmp->next = list->next;
+    list->next = tmp ;
   }
-  queue->size += 1;
-  queue->store = tmp;
+  else{
+    list->next = tmp;
+    tmp->next = NULL;
+  }
+}
+
+struct s_tree *pop_list(struct list *list)
+{
+  struct s_tree *tmp = init_list();
+  struct list *pop = malloc(sizeof(struct list));
+
+  tmp = list->tree;
+  pop->next = list->next;
+  list->next = pop->next;
+
+  return tmp;
 }
 
 /*
- * queue_pop(queue) pop the next element (FIFO order)
- * returns NULL if the queue is empty
+**  change_list: pop an element from list and push this in another
+**    prev: the list to push from
+**    next: the list to push in
+**  change_list pop the next element in [prev] and push in the next element of
+**  [next]
 */
-void* queue_pop(struct queue *queue)
+void change_list(struct list *prev, struct list *next)
 {
-  if (!queue_is_empty(queue))
-    {
-      struct list *tmp = malloc(sizeof (struct list));
-      tmp = queue->store->next;
-      queue->store->next = tmp->next;
-      queue->size -= 1;
-      void *data = tmp->tree->data;
-      free(tmp);
-      return data;
-    }
-  else
-    {
-      return NULL;
-    }
-
-
+  struct list *tmp = init_list();
+  tmp->next->tree = pop_list(list);
+  push_list(next,tmp->next->tree);
+  free(tmp);
 }
