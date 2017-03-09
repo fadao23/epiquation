@@ -6,9 +6,10 @@
 # include <stdlib.h>
 # include <math.h>
 # include <string.h>
+
 /*
- ** enumeration used to list the differents mathematical functions
- */
+** enumeration used to list the differents mathematical functions
+*/
 enum e_function
 {
   UNKNOW_F,
@@ -21,12 +22,12 @@ enum e_function
 };
 
 /*
- ** struct of function element
- **   function: Identifiant of function
- **   parameter: Optionnal array of parameter usefull for specifique function
- **   power: power of the function
- **   multiplier: multiplier of the function
- */
+** struct of function element
+**   function: Identifiant of function
+**   parameter: Optionnal array of parameter usefull for specifique function
+**   power: power of the function
+**   multiplier: multiplier of the function
+*/
 struct s_function
 {
   enum e_function *function;
@@ -36,19 +37,36 @@ struct s_function
 };
 
 /*
-  ** Function for make easily s_function
-  ** Take all parameters of struct s_function
+**	init_function: initialize a function structure
+**		func: the name of function
+**		para: optionnal parameter of function 
+** 	initialise a function struct with [func] and [para] parameter and default
+**	value
 */
 struct s_function *init_function(enum e_function *func, float para);
 
+/*
+**	get_function: get an e_function value
+**		function: name of the function
+**	get_function match an e_function value with [function] and return it.
+**	Return unknow value if no match.
+*/
 enum e_function *get_function(char *function);
 
+/*
+**	calcul_function: calcul value of the function
+**		function: the function
+**		val: the value set to function
+**	calcul_function calcul the value of [val] apply to the function then the
+**	power and multiplier of [function]
+*/
 float calcul_function(struct s_function *function, float val);
 
 /*
- ** Free s_function Struct
- ** Take struct s_function *function in argument
- */
+**	free_function: free a s_function struct
+**		function: a structure to free
+**	free_function free [function] pointeur before free the struct
+*/
 void free_function(struct s_function *function);
 
 # endif /*_EPIQUATION_FUNCTION_H_*/

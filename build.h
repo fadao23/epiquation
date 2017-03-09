@@ -13,7 +13,7 @@
 
 /*
 **  build_operator: get node from an operator char
-**    [oper]: char with operator
+**    oper: char with operator
 **  Return the node containing [oper] information
 */
 struct s_tree *build_operator(char oper);
