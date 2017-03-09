@@ -11,9 +11,9 @@ int has_variable(struct s_tree *tree)
 
 float solveur(struct s_tree *tree)
 {
-	struct list *list_l	= malloc(sizeof (struct list));
-	struct list *list_r = malloc(sizeof (struct list));
-	struct list *li_l, *li_r;
+	struct s_list *list_l	= malloc(sizeof (struct s_list));
+	struct s_list *list_r = malloc(sizeof (struct s_list));
+	struct s_list *li_l, *li_r;
 	float res = 0;
 	list_l->next = NULL;
 	list_r->next = NULL;
@@ -46,7 +46,7 @@ float solveur(struct s_tree *tree)
 	return res;
 }
 
-void _get_list(struct s_tree *node, struct list *list)
+void _get_list(struct s_tree *node, struct s_list *list)
 {
   if (node->type == OPERAND && *((enum e_operator*)node->data) == PLUS)
   {
