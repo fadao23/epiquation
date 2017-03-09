@@ -67,8 +67,9 @@ struct s_tree *_parse(char *equation)
     {
       sub_string = calloc(strlen(equation + lgth + 1) + 1, sizeof (char));
       strcpy(sub_string, equation +lgth + 1);
-      tree->right = _parse(sub_string);
-      free(sub_string);
+      //tree->right = _parse(sub_string);
+      sscanf(sub_string, "%f", &((struct s_function*) tree->data)->parameter);
+			free(sub_string);
     }
     else
       tree->right = NULL;
