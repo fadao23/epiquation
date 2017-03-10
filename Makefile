@@ -7,7 +7,7 @@ LDFLAGS=
 LDLIBS= -lm
  
 SRC= main.c function.c variable.c tree.c parsing.c operator.c test_tree.c\
-list.c build.c simplify.c solveur.c
+list.c build.c simplify.c solveur.c calcul.c
 OBJ= ${SRC:.c=.o}
 DEP= ${SRC:.c=.d}
  
