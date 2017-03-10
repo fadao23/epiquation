@@ -37,11 +37,13 @@ float solveur(struct s_tree *tree)
 			change_list(li_r, li_l);
 		else
 		{
-			res += calc_no_var(pop_list(li_r));
+      struct s_tree *tmp = pop_list(li_r);
+			res += calc_no_var(tmp);
+      free_tree(tmp);
 		}
 	}
 	free_list(list_r);
-	res = calcul_variable(list_l->next->tree->data, res);
+  res = calc_res(list_l, res);
 	free_list(list_l);
 	return res;
 }
@@ -64,5 +66,27 @@ float calc_no_var(struct s_tree *node)
 		calc_no_var(node->left));
 	if (node->type == VALUE)
 		return *((float*) node->data);
-	return calc_no_var(node->left) + calc_no_var(node->right);
+  if (node->type != OPERAND)
+    err(1,"variable in calc no var");
+  enum e_operator op =*((enum e_operator*) node->data);
+  if (op == PLUS)
+	  return calc_no_var(node->left) + calc_no_var(node->right);
+  if (op == MINUS)
+	  return calc_no_var(node->left) - calc_no_var(node->right);
+  if (op == TIME)
+	  return calc_no_var(node->left) * calc_no_var(node->right);
+  if (op == SLASH)
+    return calc_no_var(node->left) / calc_no_var(node->right);
+}
+
+float calc_res(struct s_list *l, float egal)
+{
+  if (size_list(l) == 1)
+  {
+    struct s_tree *node = list_l->next->tree;
+    if (node->type == VARIABLE)
+      return calcul_variable(*((struct s_variable*) node->data), res);
+    if (node->type == FUNCTION)
+      //enlever la node function et appliquer l'inverse sur res
+  }
 }
