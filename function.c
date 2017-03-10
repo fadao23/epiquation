@@ -78,7 +78,54 @@ float calcul_function(struct s_function *function, float val)
       err(1,"Unknow function");
 			break;
   }
-  return function->multiplier * pow(res, function->power);
+  return calcul(function, res);
+}
+
+float calcul_inverse(struct s_function *function, float val)
+{
+  float res = 0;
+  switch (*function->function)
+  {
+    case LN:
+      res = expf(val);
+      break;
+    case EXP:
+      res = logf(val);
+      break;
+    case ACOS:
+      res = cosf(val);
+      break;
+		case COS:
+			res = acosf(val);
+			break;
+    case ASIN:
+      res = sinf(val);
+      break;
+		case SIN:
+			res = asinf(val);
+			break;
+		case ATAN:
+			res = tanf(val);
+			break;
+		case TAN:
+			res = atanf(val);
+			break;
+    case SQRT:
+      res = powf(val,function->parameter);
+      break;
+   	case POW:
+			res = powf(val, 1 / function->parameter);
+			break;
+		default:
+      err(1,"Unknow function");
+			break;
+  }
+  return calcul(function, res);
+}
+
+float calcul(struct s_function *function, float val)
+{
+  return pow(val, function->power) / function->multiplier;
 }
 
 void free_function(struct s_function *function)

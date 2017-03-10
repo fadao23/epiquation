@@ -67,6 +67,10 @@ enum e_function *get_function(char *function);
 */
 float calcul_function(struct s_function *function, float val);
 
+float calcul_inverse(struct s_function *function, float val);
+
+float calcul(struct s_function *function, float val);
+
 /*
 **	free_function: free a s_function struct
 **		function: a structure to free
