@@ -14,6 +14,8 @@ struct s_list {
 
 struct s_list *init_list(void);
 
+size_t size_list(struct s_list *list);
+
 /*
 **  list_add: add a val in list
 **    l: list to push in
