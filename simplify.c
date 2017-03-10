@@ -29,22 +29,29 @@ void simplify_minus(struct s_tree *node, int coef)
 			simplify_minus(node->right, coef);
 			simplify_minus(node->left, coef);
 		}
-		else if (node->type == VALUE)
-			*((float*) node->data) *= coef;
-
-		else if (node->type == VARIABLE)
-			((struct s_variable*) node->data)->mult *= coef;
-		else
-			((struct s_function*) node->data)->multiplier *= coef;
+	}
+	else if (node->type == VALUE)
+		*((float*) node->data) *= coef;
+	else if (node->type == VARIABLE)
+		((struct s_variable*) node->data)->mult *= coef;
+	else
+		((struct s_function*) node->data)->multiplier *= coef;
 }
 
 
 
-struct s_tree reBuildTree(struct s_list *list, float coef)
+struct s_tree rebuild_tree(struct s_list *list, float coef)
 {
-	if(l->next)
+	struct s_tree *cur = pop_list(list);
+	struct s_tree *new = build_operator('*');
+	tree->left = mult(coef, cur);
+	if(size_list(list) > 1)
 	{
-		struct s_tree cur = l.pop();
+		tree->right = rebuild_tree(list, 1);
+	}
+	else
+	{
+		tree->right = ;
 	}
 }
 
@@ -65,7 +72,7 @@ void simplify_mult(struct s_tree *node, struct s_list *list, float coef, int kri
 		simplify_mult(node->left, list, coef, 1);
 		simplify_mult(node->right, list, coef, 1);
 
-		if(krisbool == 1)
+		if(krisbool == 0 && l->next != NULL)
 		{
 				//reBuildTree
 		}

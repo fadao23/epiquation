@@ -7,34 +7,32 @@
 # include "tree.h"
 
 /* standard linked lists */
-struct list {
-  struct list   *next;
+struct s_list {
+  struct s_list *next;
   struct s_tree *tree;
 };
 
-/*
- * queue container: replace sentinel and add abstraction
- */
-struct queue {
-  struct list *store;
-  int         sum;
-};
+struct s_list *init_list(void);
 
 /*
- * queue_init(queue) initialize an empty queue container
- * allocation of the container is kept external for more flexibility
- */
-void queue_init(struct queue *queue);
+**  list_add: add a val in list
+**    l: list to push in
+**    val: the node to push
+**  list_add add [val] after the sentinelle of [l]
+*/
+void push_list(struct s_list *list, struct s_tree *val);
+
+struct s_tree *pop_list(struct s_list *list);
 
 /*
- * queue_push(queue, elm) push elm
- */
-void queue_push(struct queue *queue, struct s_tree *elm);
+**  change_list: pop an element from list and push this in another
+**    prev: the list to push from
+**    next: the list to push in
+**  change_list pop the next element in [prev] and push in the next element of
+**  [next]
+*/
+void change_list(struct s_list *prev, struct s_list *next);
 
-/*
- * queue_pop(queue) pop the next element (FIFO order)
- * returns NULL if the queue is empty
- */
-struct s_tree *queue_pop(struct queue *queue);
+void free_list(struct s_list *list);
 
 # endif
