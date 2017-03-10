@@ -11,7 +11,7 @@ int main()
 	((struct s_variable*)tree->left->left->data)->mult = 3;
 	tree->left->right = build_number("4");
 	tree->right = build_number("19");
-	printf("%f\n", solveur(tree));
+	printf("%f\n", solveur(tree, 0));
 	free_tree(tree);
 	return 0;
 }
