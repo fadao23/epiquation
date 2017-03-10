@@ -9,12 +9,11 @@ int has_variable(struct s_tree *tree)
   return has_variable(tree->left) || has_variable(tree->right);
 }
 
-float solveur(struct s_tree *tree)
+float solveur(struct s_tree *tree, float res)
 {
 	struct s_list *list_l	= malloc(sizeof (struct s_list));
 	struct s_list *list_r = malloc(sizeof (struct s_list));
 	struct s_list *li_l, *li_r;
-	float res = 0;
 	list_l->next = NULL;
 	list_r->next = NULL;
 	_get_list(tree->left, list_l);
@@ -77,16 +76,19 @@ float calc_no_var(struct s_tree *node)
 	  return calc_no_var(node->left) * calc_no_var(node->right);
   if (op == SLASH)
     return calc_no_var(node->left) / calc_no_var(node->right);
+  err(1,"Case undefined calc_no_var");
+  return 0;
 }
 
 float calc_res(struct s_list *l, float egal)
 {
-  if (size_list(l) == 1)
+  //if (size_list(l) == 1)
   {
-    struct s_tree *node = list_l->next->tree;
+    struct s_tree *node = l->next->tree;
     if (node->type == VARIABLE)
-      return calcul_variable(*((struct s_variable*) node->data), res);
-    if (node->type == FUNCTION)
+      return calcul_variable((struct s_variable*) node->data, egal);
+    //if (node->type == FUNCTION)
       //enlever la node function et appliquer l'inverse sur res
   }
+  return 0;
 }

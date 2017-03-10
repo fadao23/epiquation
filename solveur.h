@@ -22,8 +22,9 @@ int has_variable(struct s_tree *tree);
 
 void _get_list(struct s_tree *node, struct s_list *list);
 
-float solveur(struct s_tree *tree);
+float solveur(struct s_tree *tree, float res);
 
 float calc_no_var(struct s_tree *node);
 
+float calc_res(struct s_list *l, float egal);
 # endif /*_EPIQUATION_SOLVEUR_H_*/
