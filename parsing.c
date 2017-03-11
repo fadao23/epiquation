@@ -49,8 +49,15 @@ struct s_tree *_parse(char *equation)
 
 		sub_string = calloc(strlen(equation) - pos, sizeof (char));
 		strcpy(sub_string, equation + pos + 1);
-		tree->right = _parse(sub_string);
-		free(sub_string);
+		if(*(equation + pos) == '/')
+    {
+      tree->right = build_function("pow");
+      ((struct s_function*) tree->right->data)->param = -1;
+      tree->right->left = _parse(sub_string);
+    }
+    else
+      tree->right = _parse(sub_string);
+    free(sub_string);
 	}
 	else if (comp_regex(equation,
   "^[a-z]{2,}\\([0-9a-z\\+-\\*/().]+(,[0-9]+)?\\)$"))//Function
@@ -67,7 +74,7 @@ struct s_tree *_parse(char *equation)
     {
       sub_string = calloc(strlen(equation + lgth + 1) + 1, sizeof (char));
       strcpy(sub_string, equation +lgth + 1);
-      sscanf(sub_string, "%f", &((struct s_function*) tree->data)->parameter);
+      sscanf(sub_string, "%f", &((struct s_function*) tree->data)->param);
 			free(sub_string);
     }
     else

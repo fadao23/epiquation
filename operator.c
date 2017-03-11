@@ -22,12 +22,7 @@ int get_pos_operator(char *equation)
       op = MINUS;
       pos = i;
     }
-    else if (c == '/' && pile == 0 && SLASH > op)
-    {
-      op = SLASH;
-      pos = i;
-    }
-    else if (c == '*' && pile == 0 && TIME > op)
+    else if ((c == '/' || c == '*') && pile == 0 && TIME > op)
     {
       op = TIME;
       pos = i;
@@ -49,9 +44,6 @@ enum e_operator *get_operator(int num_operator)
       break;
     case '*':
       *op = TIME;
-      break;
-    case '/':
-      *op = SLASH;
       break;
     case '=':
       *op = EQUAL;

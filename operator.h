@@ -13,7 +13,6 @@ enum e_operator
 {
   UNKNOW,
   EQUAL,
-	SLASH,
 	TIME,
 	PLUS,
 	MINUS
