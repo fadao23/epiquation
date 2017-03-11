@@ -23,7 +23,7 @@
 **			null put it in [tmp], after that return the sum of the two children's
 **			return.
 */
-float simplify_plus(struct s_tree *node, struct s_tree *tmp);
+void simplify_plus(struct s_tree *node, struct s_list *list, float coef, int krisbool);
 
 /*
 **	simplify_minus: remove all minus node
