@@ -55,7 +55,7 @@ void multiplie_tree(struct s_tree **node, float coef, int bol)
     }
     if ((*node)->type == FUNCTION)
     {
-      ((struct s_function*)(*node)->data)->multiplier *= coef;
+      ((struct s_function*)(*node)->data)->mult *= coef;
     }
   }
 }
