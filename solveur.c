@@ -95,15 +95,20 @@ float calc_res(struct s_list *l, float egal)
 {
   struct s_tree *node = l->next->tree;
   if (node->type == VARIABLE)
+  {
     return calcul_variable((struct s_variable*) node->data, egal);
+  }
   if (node->type == FUNCTION)
   {
     egal = calcul_inverse(node->data, egal);
-    struct s_tree *tmp = node->left;
-    node->left = NULL;
-    free_tree(node);
-    node = tmp;
-    return solveur(node, egal);
+    node = node->left;
+    if(size_tree(node) > 1)
+      return solveur(node->left, egal);
+    else
+    {
+      l->next->tree = node;
+      return calc_res(l, egal);
+    }
   }
   return 0;
 }
