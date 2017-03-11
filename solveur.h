@@ -29,5 +29,5 @@ void change(struct s_list *from, struct s_list *to, int *size_from, int
 
 float calc_no_var(struct s_tree *node);
 
-float calc_res(struct s_list *l, float egal);
+float calc_res(struct s_list *l, int size, float egal);
 # endif /*_EPIQUATION_SOLVEUR_H_*/

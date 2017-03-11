@@ -108,7 +108,7 @@ float calc_res(struct s_list *l, int size, float egal)
     else
     {
       l->next->tree = node;
-      return calc_res(l, egal);
+      return calc_res(l, 1,egal);
     }
   }
   return 0;
