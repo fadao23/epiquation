@@ -7,7 +7,7 @@ CFLAGS= -Wall -Wextra -std=c99 -O0 -g3
 LDFLAGS=
 LDLIBS= -lm
  
-SRC= main.c function.c variable.c tree.c parsing.c operator.c test_tree.c\
+SRC= main.c function.c variable.c tree.c parsing.c operator.c\
 list.c build.c simplify.c solveur.c calcul.c
 OBJ= ${SRC:.c=.o}
 DEP= ${SRC:.c=.d}
