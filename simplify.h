@@ -38,25 +38,18 @@ float simplify_plus(struct s_tree *node, struct s_tree *tmp);
 */
 void simplify_minus(struct s_tree *node, int coef);
 
-/*
-**	is_value: get a value from a node
-**		node: the current node
-**	is_value get the type of [node]
-**		If it's a value, return it
-**		Return 0 otherwise
-*/
-float is_value(struct s_tree *node);
+
+
+
+struct s_tree rebuild_tree(struct s_list *list, float coef);
 
 /*
-**	simplify_time: simplifies a tree by doing time operation
-**		node: the current node in the tree
-**		multiplier: the multiplier (must be at 1 by default)
-**	simplify_time call is_value on each children. if all children are value,
-**	return the multiplication between these two value. If they are just one,
-**	call simplify_time with [multiplier] * value. If they arent
-	FIX IT
-**
+**	simplify_mult: simplifies a tree by doing time operation
+**		node: The current node in the tree
+**		list: List where everything but values are put into if krisbool = 1
+**		coef: The multiplier (must be at 1 by default)
+**		krisbool: Boolean to know if a '*' has already been passed
 */
-float simplify_time(struct s_tree *node, float multiplier);
+void simplify_mult(struct s_tree *node, struct s_list *list, float coef, int krisbool);
 
 # endif /* _EPIQUATION_SIMPLIFY_H_ */

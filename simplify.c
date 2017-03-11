@@ -1,19 +1,41 @@
 # include "simplify.h"
 
-/*
-	 float simplify_plus(struct s_tree *node, struct s_tree *tmp)
-	 {
-	 if (node->type == VALUE)
-	 return *((float*)node->data);
-	 else if (node->type != OPERAND)
-	 return 0;
-	 else if ( )
-	 {
-	 simplify_plus()
-	 }
-	 return res;
-	 }
- */
+
+void simplify_plus(struct s_tree *node, struct s_list *list, float coef, int krisbool)
+{
+  if(!node)
+    return;
+
+  if(node->type == OPERAND && *((enum e_operator*) node->data) == PLUS)
+  {
+    if(krisbool == 0)
+    {
+      list = init_list();
+      *coef = 0;
+    }
+    simplify_plus(node->left, list, coef, 1);
+    simplify_plus(node->right, list, coef, 1);
+
+    if(krisbool == 0 && l->next != NULL)
+      rebuild_tree(list, *coef, 0);
+  }
+
+  else
+  {
+    if(krisbool == 1)
+    {
+      if (node->type == VALUE)
+        *coef += *((float*)node->data);
+      else
+        push_list(list, node);
+    }
+    else
+    {
+      simplify_plus(node->left, list, coef, 0);
+      simplify_plus(node->right, list, coef, 0);
+    }
+  }	
+}
 
 void simplify_minus(struct s_tree *node, int coef)
 {
@@ -40,24 +62,33 @@ void simplify_minus(struct s_tree *node, int coef)
 
 
 
-struct s_tree rebuild_tree(struct s_list *list, float coef)
+struct s_tree rebuild_tree(struct s_list *list, float coef, int mult)
 {
 	struct s_tree *cur = pop_list(list);
-	struct s_tree *new = build_operator('*');
-	tree->left = mult(coef, cur);
-	if(size_list(list) > 1)
+	if(mult)
 	{
-		tree->right = rebuild_tree(list, 1);
+		struct s_tree *tree = build_operator('*');
+		tree->left = mult(coef, cur);
+		if(size_list(list) > 1)
+			tree->right = rebuild_tree(list, 1, 1);
+		else
+			tree->right = pop_list(list);
 	}
 	else
 	{
-		tree->right = ;
+	  struct s_tree *tree = build_operator('+');
+    tree->left = plus(coef, cur);
+    if(size_list(list) > 1)
+      tree->right = rebuild_tree(list, 1, 0);
+    else
+      tree->right = pop_list(list);
 	}
+	return tree;
 }
 
 
 
-void simplify_mult(struct s_tree *node, struct s_list *list, float coef, int krisbool)
+void simplify_mult(struct s_tree *node, struct s_list *list, float *coef, int krisbool)
 {
 	if(!node)
 		return;
@@ -67,22 +98,24 @@ void simplify_mult(struct s_tree *node, struct s_list *list, float coef, int kri
 		if(krisbool == 0)
 		{
 			list = init_list();
-			coef = 1;
+			*coef = 1;
 		}
 		simplify_mult(node->left, list, coef, 1);
 		simplify_mult(node->right, list, coef, 1);
 
 		if(krisbool == 0 && l->next != NULL)
-		{
-				//reBuildTree
-		}
+			rebuild_tree(list, *coef, 1);
 	}
 
 	else
 	{
 		if(krisbool == 1)
-			push_list(list, node);
-
+		{
+			if (node->type == VALUE)
+				*coef *= *((float*)node->data);
+			else
+				push_list(list, node);
+		}
 		else
 		{
 			simplify_mult(node->left, list, coef, 0);
@@ -90,4 +123,3 @@ void simplify_mult(struct s_tree *node, struct s_list *list, float coef, int kri
 		}
 	}
 }
-
