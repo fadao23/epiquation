@@ -12,18 +12,37 @@ struct s_list {
   struct s_tree *tree;
 };
 
+/*
+** init_list: Init the list
+**    malloc sizeof(struct list)
+**    list->tree NULL
+**    list->nex NULL
+**  return the list
+*/
 struct s_list *init_list(void);
 
+
+/*
+** size_list: Return size of list
+** without sentinel
+*/
 size_t size_list(struct s_list *list);
 
 /*
-**  list_add: add a val in list
+**  push_list: add a val in list
 **    l: list to push in
 **    val: the node to push
 **  list_add add [val] after the sentinelle of [l]
 */
 void push_list(struct s_list *list, struct s_tree *val);
 
+
+/*
+**  pop_list: remove one element of list
+**    prev: sentinel
+**    next : next element after the poped
+**  return list
+*/
 struct s_tree *pop_list(struct s_list *list);
 
 /*
@@ -35,6 +54,11 @@ struct s_tree *pop_list(struct s_list *list);
 */
 void change_list(struct s_list *prev, struct s_list *next);
 
+
+/*
+**  free_list: free the memomry take by list
+**    used pop_list in loop and free list
+*/
 void free_list(struct s_list *list);
 
 # endif
