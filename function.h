@@ -44,7 +44,7 @@ struct s_function
 /*
 **	init_function: initialize a function structure
 **		func: the name of function
-**		para: optionnal parameter of function 
+**		para: optionnal parameter of function
 ** 	initialise a function struct with [func] and [para] parameter and default
 **	value
 */
