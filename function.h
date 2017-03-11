@@ -36,9 +36,9 @@ enum e_function
 struct s_function
 {
   enum e_function *function;
-  float           parameter;
+  float           param;
   int             power;
-  float           multiplier;
+  float           mult;
 };
 
 /*

@@ -5,9 +5,9 @@ struct s_function *init_function(enum e_function *func,float para)
 {
   struct s_function *fun = malloc(sizeof(struct s_function));
   fun->function = func;
-  fun->parameter = para;
+  fun->param = para;
   fun->power = 1;
-  fun->multiplier = 1;
+  fun->mult = 1;
   return fun;
 }
 
@@ -69,10 +69,10 @@ float calcul_function(struct s_function *function, float val)
 			res = atanf(val);
 			break;
     case POW:
-      res = powf(val,function->parameter);
+      res = powf(val,function->param);
       break;
    	case SQRT:
-			res = powf(val, 1 / function->parameter);
+			res = powf(val, 1 / function->param);
 			break;
 		default:
       err(1,"Unknow function");
@@ -111,10 +111,10 @@ float calcul_inverse(struct s_function *function, float val)
 			res = atanf(val);
 			break;
     case SQRT:
-      res = powf(val,function->parameter);
+      res = powf(val,function->param);
       break;
    	case POW:
-			res = powf(val, 1 / function->parameter);
+			res = powf(val, 1 / function->param);
 			break;
 		default:
       err(1,"Unknow function");
@@ -125,7 +125,7 @@ float calcul_inverse(struct s_function *function, float val)
 
 float calcul(struct s_function *function, float val)
 {
-  return pow(val, function->power) / function->multiplier;
+  return pow(val, 1 / function->power) / function->mult;
 }
 
 void free_function(struct s_function *function)
