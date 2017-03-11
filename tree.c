@@ -22,15 +22,15 @@ int size_tree(struct s_tree *node)
 
 void free_tree(struct s_tree *tree)
 {
-	if (tree == NULL)
-		return;
-	free_tree(tree->left);
-	free_tree(tree->right);
-	if (tree->type == VARIABLE)
-		free_variable(tree->data);
-	else if (tree->type == FUNCTION)
-		free_function(tree->data);
-	else
-		free(tree->data);
-	free(tree);
+  if (tree == NULL)
+    return;
+  free_tree(tree->left);
+  free_tree(tree->right);
+  if (tree->type == VARIABLE)
+    free_variable(tree->data);
+  else if (tree->type == FUNCTION)
+    free_function(tree->data);
+  else
+    free(tree->data);
+  free(tree);
 }

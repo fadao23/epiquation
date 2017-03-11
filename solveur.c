@@ -36,7 +36,6 @@ float solveur(struct s_tree *tree, float res)
 		{
       struct s_tree *tmp = pop_list(li_r);
 			res += calc_no_var(tmp);
-      free_tree(tmp);
       size_r--;
 		}
 	}
