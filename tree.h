@@ -43,7 +43,7 @@ struct          s_tree
 */
 struct s_tree *create_node(enum e_type type, void *data);
 
-int get_prof(struct s_tree *node);
+int size_tree(struct s_tree *node);
 
 /*
 **	free_tree: free a tree

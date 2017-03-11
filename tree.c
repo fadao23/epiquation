@@ -13,18 +13,11 @@ struct s_tree *create_node(enum e_type type, void *data)
   return create_node;
 }
 
-int get_prof(struct s_tree *node)
+int size_tree(struct s_tree *node)
 {
-	if (node == NULL)
-		return 0;
-	if(node->type == OPERAND)
-	{
-		int prof = get_prof(node->left);
-		int prof_r = get_prof(node->right);
-		prof = prof > prof_r ? prof : prof_r;
-		return prof + 1;
-	}
-	return 1 + get_prof(node->left);
+  if (node == NULL)
+    return 0;
+  return size_tree(node->left) + size_tree(node->right) + 1;
 }
 
 void free_tree(struct s_tree *tree)
