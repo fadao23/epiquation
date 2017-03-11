@@ -20,9 +20,12 @@
 */
 int has_variable(struct s_tree *tree);
 
-void _get_list(struct s_tree *node, struct s_list *list);
+void _get_list(struct s_tree *node, struct s_list *list, int *size);
 
 float solveur(struct s_tree *tree, float res);
+
+void change(struct s_list *from, struct s_list *to, int *size_from, int
+*size_to);
 
 float calc_no_var(struct s_tree *node);
 
