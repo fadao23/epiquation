@@ -40,7 +40,7 @@ float solveur(struct s_tree *tree, float res)
 		}
 	}
 	free_list(list_r);
-  res = calc_res(list_l, res);
+  res = calc_res(list_l, size_l, res);
 	free_list(list_l);
 	return res;
 }
@@ -84,14 +84,16 @@ float calc_no_var(struct s_tree *node)
 	  return calc_no_var(node->left) - calc_no_var(node->right);
   if (op == TIME)
 	  return calc_no_var(node->left) * calc_no_var(node->right);
-  if (op == SLASH)
-    return calc_no_var(node->left) / calc_no_var(node->right);
   err(1,"Case undefined calc_no_var");
   return 0;
 }
 
-float calc_res(struct s_list *l, float egal)
+float calc_res(struct s_list *l, int size, float egal)
 {
+  while (size > 1)
+  {
+    // addition des x
+  }
   struct s_tree *node = l->next->tree;
   if (node->type == VARIABLE)
   {

@@ -35,5 +35,5 @@ void simplify_minus(struct s_tree *node, int coef)
 	else if (node->type == VARIABLE)
 		((struct s_variable*) node->data)->mult *= coef;
 	else
-		((struct s_function*) node->data)->multiplier *= coef;
+		((struct s_function*) node->data)->mult *= coef;
 }
