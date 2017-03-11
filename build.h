@@ -39,4 +39,6 @@ struct s_tree *build_variable(char *var);
 */
 struct s_tree *build_number(char *number);
 
+struct s_tree *build_float(float *number);
+
 # endif /*_EPIQUATION_BUILD_H_*/

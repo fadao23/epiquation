@@ -33,10 +33,15 @@ struct s_tree *build_variable(char *var)
 
 struct s_tree *build_number(char *number)
 {
-  struct s_tree *node = build();
   float *res = malloc(sizeof (float));
   sscanf(number, "%f", res);
+  return build_float(res);
+}
+
+struct s_tree *build_float(float *number)
+{
+  struct s_tree *node = build();
   node->type = VALUE;
-  node->data = res;
+  node->data = number;
  	return node;
 }
