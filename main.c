@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
   struct s_tree *node = parse(argv[1]);
   printf("minus\n");
-  simplify_minus(node, 1);
+  simplify_minus(&node, 1);
   tree_to_string(node);
   float coef = 1;
 

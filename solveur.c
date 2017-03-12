@@ -29,7 +29,7 @@ float solveur(struct s_tree *tree, float res, int egal)
       else
       {
         struct s_tree *tmp = pop_list(li_l);
-        simplify_minus(tmp, -1);
+        simplify_minus(&tmp, -1);
 			  res += calc_no_var(tmp);
       }
 		}
@@ -56,7 +56,7 @@ float solveur(struct s_tree *tree, float res, int egal)
 void change(struct s_list *from, struct s_list *to, int *size_from, int
 *size_to)
 {
-  simplify_minus(from->next->tree, -1);
+  simplify_minus(&from->next->tree, -1);
   change_list(from, to);
   size_from--;
   size_to++;
