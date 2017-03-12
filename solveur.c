@@ -13,69 +13,59 @@ float solveur(struct s_tree *tree, float res, int egal)
 {
 	struct s_list *list_l	= init_list();
 	struct s_list *list_r = init_list();
-	struct s_list *li_l, *li_r;
-  int size_r = 0, size_l = 0;
-	_get_list(tree->left, list_l, &size_l);
-  if (!egal)
-	  _get_list(tree->right, list_r, &size_r);
-	li_l = list_l;
-	li_r = list_r;
+	struct s_list *li_l;
+  if (egal)
+  {
+	  _get_list(tree->left, list_l);
+	  _get_list(tree->right, list_r);
+	}
+  else
+	  _get_list(tree, list_l);
+  li_l = list_l;
 	while (li_l->next)
 	{
 		if (!has_variable(li_l->next->tree))
     {
-      if (!egal)
-        change(li_l, li_r, &size_l, &size_r);
-      else
-      {
-        struct s_tree *tmp = pop_list(li_l);
-        simplify_minus(&tmp, -1);
-			  res += calc_no_var(tmp);
-      }
+      struct s_tree *tmp = pop_list(li_l);
+      simplify_minus(&tmp, -1);
+			res += calc_no_var(tmp);
 		}
     else
 			li_l = li_l->next;
 	}
-	while (li_r->next)
+	while (list_r->next)
 	{
-		if(has_variable(li_r->next->tree))
-		  change(li_r, li_l, &size_r, &size_l);
+		if(has_variable(list_r->next->tree))
+		  change(list_r, li_l);
     else
 		{
-      struct s_tree *tmp = pop_list(li_r);
+      struct s_tree *tmp = pop_list(list_r);
 			res += calc_no_var(tmp);
-      size_r--;
 		}
 	}
 	free_list(list_r);
-  res = calc_res(list_l, size_l, res);
+  res = calc_res(list_l, res);
 	free_list(list_l);
 	return res;
 }
 
-void change(struct s_list *from, struct s_list *to, int *size_from, int
-*size_to)
+void change(struct s_list *from, struct s_list *to)
 {
   simplify_minus(&from->next->tree, -1);
   change_list(from, to);
-  size_from--;
-  size_to++;
 }
 
-void _get_list(struct s_tree *node, struct s_list *list, int *size)
+void _get_list(struct s_tree *node, struct s_list *list)
 {
   if(!node)
     return;
   if (node->type == OPERAND && *((enum e_operator*)node->data) == PLUS)
   {
-    _get_list(node->left, list, size);
-    _get_list(node->right, list, size);
+    _get_list(node->left, list);
+    _get_list(node->right, list);
   }
   else
-  {
-    size++;
     push_list(list, node);
-  }
 }
 
 float calc_no_var(struct s_tree *node)
@@ -98,28 +88,19 @@ float calc_no_var(struct s_tree *node)
   return 0;
 }
 
-float calc_res(struct s_list *l, int size, float egal)
+float calc_res(struct s_list *l, float egal)
 {
-  while (size > 1)
+  int cpt = 0;
+  struct s_tree *node;
+  while (l->next)
   {
-    // addition des x
+    node = pop_list(l);
+    cpt += ((struct s_variable*)node->data)->mult;
   }
-  struct s_tree *node = l->next->tree;
+  ((struct s_variable*)node->data)->mult = cpt;
   if (node->type == VARIABLE)
-  {
     return calcul_variable((struct s_variable*) node->data, egal);
-  }
   if (node->type == FUNCTION)
-  {
-    egal = calcul_inverse(node->data, egal);
-    node = node->left;
-    if(size_tree(node) > 1)
-      return solveur(node, egal, 0);
-    else
-    {
-      l->next->tree = node;
-      return calc_res(l, 1,egal);
-    }
-  }
+    return solveur(node->left, calcul_inverse(node->data, egal), 0);
   return 0;
 }

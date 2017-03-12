@@ -20,14 +20,13 @@
 */
 int has_variable(struct s_tree *tree);
 
-void _get_list(struct s_tree *node, struct s_list *list, int *size);
+void _get_list(struct s_tree *node, struct s_list *list);
 
 float solveur(struct s_tree *tree, float res, int egal);
 
-void change(struct s_list *from, struct s_list *to, int *size_from, int
-*size_to);
+void change(struct s_list *from, struct s_list *to);
 
 float calc_no_var(struct s_tree *node);
 
-float calc_res(struct s_list *l, int size, float egal);
+float calc_res(struct s_list *l, float egal);
 # endif /*_EPIQUATION_SOLVEUR_H_*/
