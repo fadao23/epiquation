@@ -12,23 +12,11 @@ int main(int argc, char *argv[])
     err(1,"Miising Argument");
 
   struct s_tree *node = parse(argv[1]);
-
-  int size = size_tree(node);
-  printf("%d\n",size);
+  simplify_minus(node, 1);
   float coef = 1;
-  simplify_mult(node, NULL, &coef, 0);
-  size = size_tree(node);
-  printf("%d\n",size);
+  simplify_mult(&node, NULL, &coef, 0);
 
-  //ln(4x) = 0
-  /*
-  struct s_tree *tree = build_operator('=');
-	tree->left = build_function("ln");
-  tree->left->left = build_variable("x");
-  ((struct s_variable*)tree->left->left->data)->mult = 4;
-	tree->right = build_number("0");
-	printf("%f\n", solveur(tree, 0));
-  */
+	printf("x = %f\n", solveur(node, 0));
 
   free_tree(node);
   return 0;
