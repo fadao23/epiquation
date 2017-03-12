@@ -14,7 +14,7 @@ size_t size_list(struct s_list *list)
 {
   struct s_list *tmp = list;
   size_t cpt = 0;
-  for(;tmp != NULL; tmp = tmp->next)
+  for(;tmp->next != NULL; tmp = tmp->next)
     cpt += 1;
 
   return cpt;
