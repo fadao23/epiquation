@@ -34,7 +34,7 @@ void simplify_plus(struct s_tree *node, struct s_list *list, float *coef, int kr
       simplify_plus(node->left, list, coef, 0);
       simplify_plus(node->right, list, coef, 0);
     }
-  }	
+  }
 }
 
 void simplify_minus(struct s_tree *node, int coef)
@@ -68,7 +68,7 @@ struct s_tree *rebuild_tree(struct s_list *list, float coef, int mult)
 	if(mult)
 	{
 		struct s_tree *tree = build_operator('*');
-		multiplie_tree(cur, coef, 0);
+		multiplie_tree(&cur, coef, 0);
     tree->left = cur;
 		if(size_list(list) > 1)
 			tree->right = rebuild_tree(list, 1, 1);
