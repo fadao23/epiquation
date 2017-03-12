@@ -5,7 +5,7 @@ void multiplie_tree(struct s_tree **node, float coef, int bol)
 
   float r;
   struct s_tree *tmp;
-  if (node == NULL)
+  if (node == NULL || coef == 1)
     return;
   if (!bol)
   {

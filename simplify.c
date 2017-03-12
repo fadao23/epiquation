@@ -64,30 +64,38 @@ void simplify_minus(struct s_tree *node, int coef)
 
 struct s_tree *rebuild_tree(struct s_list *list, float coef, int mult)
 {
-	struct s_tree *cur = pop_list(list);
-	if(mult)
-	{
-		struct s_tree *tree = build_operator('*');
-		multiplie_tree(&cur, coef, 0);
+  struct s_tree *cur;
+  float *tmp;
+  if(size_list(list))
+  {
+	  cur = pop_list(list);
+    struct s_tree *tree = mult ? build_operator('*') : build_operator('+');
+    if (mult)
+      multiplie_tree(&cur, coef, 1);
     tree->left = cur;
-		if(size_list(list) > 1)
-			tree->right = rebuild_tree(list, 1, 1);
-		else
-			tree->right = pop_list(list);
-	}
-	else
-	{
-	  struct s_tree *tree = build_operator('+');
-    if(size_list(list) > 1)
-      tree->right = rebuild_tree(list, coef, 0);
+    if (mult)
+    {
+      if(size_list(list) > 1)
+        tree->right = rebuild_tree(list, 1, mult);
+      else
+        tree->right = pop_list(list);
+    }
     else
     {
-      float *tmp = malloc(sizeof (float));
-      *tmp = coef;
-      tree->right = build_float(tmp);
-	  }
+      if(size_list(list))
+        tree->right = rebuild_tree(list, coef, mult);
+      else
+      {
+        tmp = malloc(sizeof (float));
+        *tmp = coef;
+        tree->right = build_float(tmp);
+      }
+    }
+	  return cur;
   }
-	return cur;
+  tmp = malloc(sizeof (float));
+  *tmp = coef;
+  return build_float(tmp); 
 }
 
 
