@@ -67,6 +67,7 @@ struct s_tree *_parse(char *equation)
     strncpy(sub_string, equation, lgth);
 		tree = build_function(sub_string);
     free(sub_string);
+
     equation += lgth + 1;
     *(equation + strlen(equation) - 1) = '\0';
     lgth = strcspn(equation, ",");
@@ -77,9 +78,7 @@ struct s_tree *_parse(char *equation)
       sscanf(sub_string, "%f", &((struct s_function*) tree->data)->param);
 			free(sub_string);
     }
-    else
-      tree->right = NULL;
-	  sub_string = calloc(lgth, sizeof (char));
+	  sub_string = calloc(lgth + 1, sizeof (char));
     strncpy(sub_string, equation, lgth);
     tree->left = _parse(sub_string);
     free(sub_string);
@@ -128,6 +127,7 @@ int comp_regex(char *string, char *reg)
   err(1, "Error initialising function regex");
 	}
   err_reg = regexec(&regex, string, 0, NULL, 0);
+  regfree(&regex);
 	if (!err_reg)
 		return 1;
 	else if (err_reg == REG_NOMATCH)
