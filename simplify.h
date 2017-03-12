@@ -53,6 +53,6 @@ struct s_tree *rebuild_tree(struct s_list *list, float coef, int mult);
 **		coef: The multiplier (must be at 1 by default)
 **		krisbool: Boolean to know if a '*' has already been passed
 */
-void simplify_mult(struct s_tree *node, struct s_list *list, float *coef, int krisbool);
+void simplify_mult(struct s_tree **node, struct s_list *list, float *coef, int krisbool);
 
 # endif /* _EPIQUATION_SIMPLIFY_H_ */

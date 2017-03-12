@@ -64,74 +64,95 @@ void simplify_minus(struct s_tree *node, int coef)
 
 struct s_tree *rebuild_tree(struct s_list *list, float coef, int mult)
 {
-  struct s_tree *cur;
+  struct s_tree *cur, *tree;
   float *tmp;
-  if(size_list(list))
+  int size = size_list(list);
+
+  if (size)
   {
-	  cur = pop_list(list);
-    struct s_tree *tree = mult ? build_operator('*') : build_operator('+');
-    if (mult)
-      multiplie_tree(&cur, coef, 1);
-    tree->left = cur;
+    cur = pop_list(list);
+    size--;
     if (mult)
     {
-      if(size_list(list) > 1)
-        tree->right = rebuild_tree(list, 1, mult);
+      float coef = 1;
+      simplify_mult(&cur, NULL, &coef, 0);
+      multiplie_tree(&cur, coef, 1);
+      if(size)
+      {
+        tree = build_operator('*');
+        tree->left = cur;
+        if(size > 1)
+          tree->right = rebuild_tree(list, 1, mult);
+        else
+          tree->right = pop_list(list);
+      }
       else
-        tree->right = pop_list(list);
+        tree = cur;
     }
     else
     {
-      if(size_list(list))
-        tree->right = rebuild_tree(list, coef, mult);
-      else
-      {
-        tmp = malloc(sizeof (float));
-        *tmp = coef;
-        tree->right = build_float(tmp);
-      }
+      tree = build_operator('+');
+      tree->left = cur;
+      tree->right = rebuild_tree(list, coef, mult);
     }
-	  return cur;
+    return tree;
   }
   tmp = malloc(sizeof (float));
   *tmp = coef;
-  return build_float(tmp); 
+  return build_float(tmp);
 }
 
-
-
-void simplify_mult(struct s_tree *node, struct s_list *list, float *coef, int krisbool)
+void simplify_mult(struct s_tree **node, struct s_list *list, float *coef, int krisbool)
 {
-	if(!node)
+	if(!*node)
 		return;
 
-	if(node->type == OPERAND && *((enum e_operator*) node->data) == TIME)
+	if((*node)->type == OPERAND && *((enum e_operator*)(*node)->data) == TIME)
 	{
 		if(krisbool == 0)
 		{
 			list = init_list();
 			*coef = 1;
 		}
-		simplify_mult(node->left, list, coef, 1);
-		simplify_mult(node->right, list, coef, 1);
+		simplify_mult(&(*node)->left, list, coef, 1);
+		simplify_mult(&(*node)->right, list, coef, 1);
 
-		if(krisbool == 0 && list->next != NULL)
-			rebuild_tree(list, *coef, 1);
+		if(krisbool == 0 && list != NULL)
+    {
+      (*node)->left = NULL;
+      (*node)->right = NULL;
+      free_tree(*node);
+
+			*node = rebuild_tree(list, *coef, 1);
+      free_list(list);
+      list = NULL;
+    }
+    else
+    {
+      (*node)->left = NULL;
+      (*node)->right = NULL;
+      free_tree(*node);
+      *node = NULL;
+    }
 	}
 
 	else
 	{
 		if(krisbool == 1)
 		{
-			if (node->type == VALUE)
-				*coef *= *((float*)node->data);
-			else
-				push_list(list, node);
+			if ((*node)->type == VALUE)
+      {
+				*coef *= *((float*)(*node)->data);
+			  free_tree(*node);
+        *node = NULL;
+      }
+      else
+				push_list(list, *node);
 		}
 		else
 		{
-			simplify_mult(node->left, list, coef, 0);
-			simplify_mult(node->right, list, coef, 0);
+			simplify_mult(&(*node)->left, list, coef, 0);
+			simplify_mult(&(*node)->right, list, coef, 0);
 		}
 	}
 }
