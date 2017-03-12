@@ -9,23 +9,31 @@ int has_variable(struct s_tree *tree)
   return has_variable(tree->left) || has_variable(tree->right);
 }
 
-float solveur(struct s_tree *tree, float res)
+float solveur(struct s_tree *tree, float res, int egal)
 {
-	struct s_list *list_l	= malloc(sizeof (struct s_list));
-	struct s_list *list_r = malloc(sizeof (struct s_list));
+	struct s_list *list_l	= init_list();
+	struct s_list *list_r = init_list();
 	struct s_list *li_l, *li_r;
   int size_r = 0, size_l = 0;
-  list_l->next = NULL;
-	list_r->next = NULL;
 	_get_list(tree->left, list_l, &size_l);
-	_get_list(tree->right, list_r, &size_r);
+  if (!egal)
+	  _get_list(tree->right, list_r, &size_r);
 	li_l = list_l;
 	li_r = list_r;
 	while (li_l->next)
 	{
 		if (!has_variable(li_l->next->tree))
-      change(li_l, li_r, &size_l, &size_r);
-		else
+    {
+      if (!egal)
+        change(li_l, li_r, &size_l, &size_r);
+      else
+      {
+        struct s_tree *tmp = pop_list(li_l);
+        simplify_minus(tmp, -1);
+			  res += calc_no_var(tmp);
+      }
+		}
+    else
 			li_l = li_l->next;
 	}
 	while (li_r->next)
@@ -56,6 +64,8 @@ void change(struct s_list *from, struct s_list *to, int *size_from, int
 
 void _get_list(struct s_tree *node, struct s_list *list, int *size)
 {
+  if(!node)
+    return;
   if (node->type == OPERAND && *((enum e_operator*)node->data) == PLUS)
   {
     _get_list(node->left, list, size);
@@ -104,7 +114,7 @@ float calc_res(struct s_list *l, int size, float egal)
     egal = calcul_inverse(node->data, egal);
     node = node->left;
     if(size_tree(node) > 1)
-      return solveur(node->left, egal);
+      return solveur(node, egal, 0);
     else
     {
       l->next->tree = node;
