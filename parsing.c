@@ -41,10 +41,12 @@ struct s_tree *_parse(char *equation)
 
 		sub_string = calloc(pos + 2, sizeof (char));
 		if	(pos > 0)
-			strncpy(sub_string, equation, pos);
-		else
-			*sub_string = '0';
-		tree->left = _parse(sub_string);
+	  {
+      strncpy(sub_string, equation, pos);
+		  tree->left = _parse(sub_string);
+		}
+    else
+		  tree->left = NULL;
 		free(sub_string);
 
 		sub_string = calloc(strlen(equation) - pos, sizeof (char));
@@ -87,7 +89,9 @@ struct s_tree *_parse(char *equation)
 	{
 		sub_string = calloc(strlen(equation) - 1, sizeof (char));
 		strncpy(sub_string, equation + 1, strlen(equation) - 2);
-		return _parse(sub_string);
+		struct s_tree *tmp = _parse(sub_string);
+    free(sub_string);
+    return tmp;
 	}
 	else if (comp_regex(equation, "^[a-z]$"))//variable
 	{

@@ -8,6 +8,8 @@ void tree_to_string(struct s_tree *tree)
 
 void _tree_to_string(struct s_tree *tree)
 {
+  if(!tree)
+    return;
   switch (tree->type)
   {
     case OPERAND:

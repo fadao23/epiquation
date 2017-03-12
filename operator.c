@@ -12,17 +12,17 @@ int get_pos_operator(char *equation)
       pile++;
     else if (c == ')')
       pile--;
-    else if (c == '+' && pile == 0 && PLUS > op)
+    else if (c == '+' && pile == 0 && PLUS >= op)
     {
       op = PLUS;
       pos = i;
     }
-    else if (c == '-' && pile == 0 && MINUS > op)
+    else if (c == '-' && pile == 0 && MINUS >= op)
     {
       op = MINUS;
       pos = i;
     }
-    else if ((c == '/' || c == '*') && pile == 0 && TIME > op)
+    else if ((c == '/' || c == '*') && pile == 0 && TIME >= op)
     {
       op = TIME;
       pos = i;
