@@ -9,6 +9,8 @@
 # include "variable.h"
 # include "list.h"
 # include "tree.h"
+# include "build.h"
+# include "calcul.h"
 
 /*
 **	simplify_plus: simplifies a tree by doing plus operation
@@ -24,7 +26,7 @@
 **			null put it in [tmp], after that return the sum of the two children's
 **			return.
 */
-void simplify_plus(struct s_tree *node, struct s_list *list, float coef, int krisbool);
+void simplify_plus(struct s_tree *node, struct s_list *list, float *coef, int krisbool);
 
 /*
 **	simplify_minus: remove all minus node
@@ -42,7 +44,7 @@ void simplify_minus(struct s_tree *node, int coef);
 
 
 
-struct s_tree rebuild_tree(struct s_list *list, float coef);
+struct s_tree *rebuild_tree(struct s_list *list, float coef, int mult);
 
 /*
 **	simplify_mult: simplifies a tree by doing time operation
@@ -51,6 +53,6 @@ struct s_tree rebuild_tree(struct s_list *list, float coef);
 **		coef: The multiplier (must be at 1 by default)
 **		krisbool: Boolean to know if a '*' has already been passed
 */
-void simplify_mult(struct s_tree *node, struct s_list *list, float coef, int krisbool);
+void simplify_mult(struct s_tree *node, struct s_list *list, float *coef, int krisbool);
 
 # endif /* _EPIQUATION_SIMPLIFY_H_ */
