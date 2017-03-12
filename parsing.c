@@ -39,7 +39,7 @@ struct s_tree *_parse(char *equation)
 	{
 		tree = build_operator(*(equation + pos));
 
-		sub_string = calloc(pos + 1, sizeof (char));
+		sub_string = calloc(pos + 2, sizeof (char));
 		if	(pos > 0)
 			strncpy(sub_string, equation, pos);
 		else
