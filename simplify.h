@@ -26,7 +26,8 @@
 **			null put it in [tmp], after that return the sum of the two children's
 **			return.
 */
-void simplify_plus(struct s_tree *node, struct s_list *list, float *coef, int krisbool);
+void simplify_plus(struct s_tree **node, struct s_list *list, float *coef,
+  int krisbool);
 
 /*
 **	simplify_minus: remove all minus node
@@ -39,7 +40,7 @@ void simplify_plus(struct s_tree *node, struct s_list *list, float *coef, int kr
 **			simplify_minus with [coef] * -1 on each children
 **		If it's another operator, call simplify_minus with [coef] on each children
 */
-void simplify_minus(struct s_tree *node, int coef);
+void simplify_minus(struct s_tree **node, int coef);
 
 
 
@@ -53,6 +54,7 @@ struct s_tree *rebuild_tree(struct s_list *list, float coef, int mult);
 **		coef: The multiplier (must be at 1 by default)
 **		krisbool: Boolean to know if a '*' has already been passed
 */
-void simplify_mult(struct s_tree **node, struct s_list *list, float *coef, int krisbool);
+void simplify_mult(struct s_tree **node, struct s_list *list, float *coef,
+  int krisbool);
 
 # endif /* _EPIQUATION_SIMPLIFY_H_ */
