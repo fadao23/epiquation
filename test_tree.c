@@ -29,7 +29,8 @@ void _tree_to_string(struct s_tree *tree)
       printf(")");
       break;
     case VARIABLE:
-      printf("%c", ((struct s_variable*)tree->data)->name);
+      printf("%.1f%c", ((struct s_variable*)tree->data)->mult,
+          ((struct s_variable*)tree->data)->name);
       break;
     case VALUE:
       printf("%03.2f", *((float*)tree->data));
@@ -77,9 +78,6 @@ void operand_to_string(enum e_operator operand)
       break;
     case TIME:
       printf("*");
-      break;
-    case SLASH:
-      printf("/");
       break;
     case EQUAL:
       printf("=");
