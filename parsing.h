@@ -11,6 +11,7 @@
 
 # include "tree.h"
 # include "build.h"
+# include "erreur.h"
 
 /*
 **	parse: get literal equation and transform it in Btree

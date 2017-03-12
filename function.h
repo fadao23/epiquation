@@ -8,6 +8,8 @@
 # include <string.h>
 # include <err.h>
 
+# include "erreur.h"
+
 /*
 ** enumeration used to list the differents mathematical functions
 */

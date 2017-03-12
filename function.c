@@ -48,6 +48,8 @@ float calcul_function(struct s_function *function, float val)
       res = expf(val);
       break;
     case LN:
+      if (val <= 0)
+        set_erreur(5);
       res = logf(val);
       break;
     case COS:
@@ -69,15 +71,21 @@ float calcul_function(struct s_function *function, float val)
 			res = atanf(val);
 			break;
     case POW:
+      if (function->param == -1 && val == 0)
+        set_erreur(4);
       res = powf(val,function->param);
       break;
    	case SQRT:
+      if (val <= 0)
+        set_erreur(6);
 			res = powf(val, 1 / function->param);
 			break;
 		default:
-      err(1,"Unknow function");
+			set_erreur(7);
 			break;
   }
+  if(*get_erreur() > 0)
+    return 0;
   return calcul(function, res);
 }
 
@@ -90,6 +98,8 @@ float calcul_inverse(struct s_function *function, float val)
       res = expf(val);
       break;
     case EXP:
+      if (val <= 0)
+        set_erreur(5);
       res = logf(val);
       break;
     case ACOS:
@@ -111,15 +121,21 @@ float calcul_inverse(struct s_function *function, float val)
 			res = atanf(val);
 			break;
     case SQRT:
-      res = powf(val,function->param);
+      if (1 / function->param == -1)
+        set_erreur(4);
+      res = powf(val,1 / function->param);
       break;
    	case POW:
+      if (val <= 0)
+        set_erreur(6);
 			res = powf(val, 1 / function->param);
 			break;
 		default:
-      err(1,"Unknow function");
-			break;
+			set_erreur(7);
+      break;
   }
+  if(*get_erreur() > 0)
+    return 0;
   return calcul(function, res);
 }
 

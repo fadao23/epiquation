@@ -8,9 +8,9 @@ struct s_tree *parse(char *equation)
 
 	rang = strchr(equation, '=');
 	if (rang == NULL)
-		err(1, "No = symbole"); /* ERROR NO =*/
-	else if (rang != strrchr(equation, '='))
-		err(1, "2 or more symbole equal"); /* ERROR 2 or more = */
+	  set_erreur(1);
+  else if (rang != strrchr(equation, '='))
+	  set_erreur(2);
 	else
 	{
     tree = build_operator(*(rang));
@@ -102,8 +102,8 @@ struct s_tree *_parse(char *equation)
 		tree = build_number(equation);
 	}
 	else
-		err(1, "Nothing match");
-	return tree;
+    set_erreur(3);
+  return tree;
 }
 
 char *clean_string(char *string)

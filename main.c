@@ -2,6 +2,7 @@
 # include "build.h"
 # include "solveur.h"
 # include "parsing.h"
+# include "erreur.h"
 # include <stdio.h>
 # include <err.h>
 
@@ -13,17 +14,33 @@ int main(int argc, char *argv[])
     err(1,"Missing Argument");
 
   struct s_tree *node = parse(argv[1]);
-  printf("minus\n");
+  
+  if (*get_erreur())
+  {
+    print_erreur();
+    free_erreur();
+    return -1;
+  }
+
   simplify_minus(&node, 1);
-  tree_to_string(node);
   float coef = 1;
 
-  printf("mult\n");
   simplify_mult(&node, NULL, &coef, 0);
-  tree_to_string(node);
 
-	printf("x = %f\n", solveur(node, 0, 1));
+  simplify_plus(&node, NULL, &coef, 0);
+
+  float res = solveur(node, 0, 1);
+
+  if (*get_erreur())
+  {
+    print_erreur();
+    free_tree(node);
+    free_erreur();
+    return -1;
+  }
+	printf("x = %f\n", res);
 
   free_tree(node);
+  free_erreur();
   return 0;
 }
