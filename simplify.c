@@ -20,7 +20,7 @@ void simplify_plus(struct s_tree **node, struct s_list *list, float *coef, int k
     (*node)->right = NULL;
     free_tree(*node);
 
-    if(krisbool == 0 && list->next != NULL)
+    if(krisbool == 0)
     {
 			*node = rebuild_tree(list, *coef, 0);
       free_list(list);
@@ -159,7 +159,7 @@ void simplify_mult(struct s_tree **node, struct s_list *list, float *coef, int k
     free_tree(*node);
 
 
-		if(krisbool == 0 && list != NULL)
+		if(krisbool == 0)
     {
 			*node = rebuild_tree(list, *coef, 1);
       free_list(list);

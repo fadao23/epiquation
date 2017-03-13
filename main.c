@@ -11,8 +11,10 @@ int main(int argc, char *argv[])
 
   if(argc < 2)
     err(1,"Missing Argument");
-
-  struct s_tree *node = parse(argv[1]);
+  
+  char *equation = clean_string(argv[1]);
+  printf("Equation nettoyee :\n%s\n", equation);
+  struct s_tree *node = parse(equation);
 
   if (*get_erreur())
   {
