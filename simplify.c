@@ -111,7 +111,7 @@ struct s_tree *rebuild_tree(struct s_list *list, float coef, int mult)
     {
       neutre = 1;
       simplify_mult(&cur, NULL, &neutre, 0);
-      multiplie_tree(&cur, coef, 1);
+      multiplie_tree(cur, coef);
       if(size)
       {
         tree = build_operator('*');
