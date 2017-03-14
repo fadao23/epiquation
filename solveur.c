@@ -77,22 +77,17 @@ int _get_list(struct s_tree *node, struct s_list *list,  int val)
   int res = val;
   if (node->type == OPERAND && *((enum e_operator*)node->data) == PLUS && (val
   == -1 || val == 0))
-  {
-    res = _get_list(node->left, list, 0);
-    res = _get_list(node->right, list, 0);
-  }
+    res = 0;
   else if (node->type == OPERAND && *((enum e_operator*)node->data) == TIME &&
   (val == -1 || val == 1))
-  {
-    res = _get_list(node->left, list, 1);
-    res = _get_list(node->right, list, 1);
-  }
-
+    res = 1;
   else
   {
     push_list(list, node);
     return val;
   }
+  res = _get_list(node->left, list, res);
+  res = _get_list(node->right, list, res);
   return res;
 }
 
@@ -114,24 +109,31 @@ float calc_no_var(struct s_tree *node)
 
 float calc_res(struct s_list *l, float egal, int type)
 {
-  int cpt = 1, plus = 0;
-  struct s_tree *node;
+  int cpt = type == 1 ? 1 : 0, var = 0;
+  struct s_tree *node = NULL;
   while (l->next)
   {
     node = pop_list(l);
-    if (type == 1)
-      cpt *= ((struct s_variable*)node->data)->mult;
-    else
+    if (node->type == VARIABLE)
     {
-      cpt += ((struct s_variable*)node->data)->mult;
-      plus = 1;
+      var = 1;
+      if (type == 1)
+        cpt *= ((struct s_variable*)node->data)->mult;
+      else
+      {
+        cpt += ((struct s_variable*)node->data)->mult;
+      }
     }
   }
-  if (plus && type != 1)
-    cpt--;
-  ((struct s_variable*)node->data)->mult = cpt;
+  //if (plus && type != 1 && bcl > 1)
+  //  cpt--;
+  if (cpt == 0 && var)
+    set_erreur(10);
   if (node->type == VARIABLE)
+  {
+    ((struct s_variable*)node->data)->mult = cpt;
     return calcul_variable((struct s_variable*) node->data, egal);
+  }
   if (node->type == FUNCTION)
   {
     egal = calcul_inverse(node->data, egal);

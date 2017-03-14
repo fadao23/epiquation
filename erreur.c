@@ -40,6 +40,8 @@ void print_erreur(void)
     printf("Value out of range on arcsin or arccos\n");
   else if (*erreur == 9)
     printf("Value out of range on arctan\n");
+  else if (*erreur == 10)
+    printf("Infinite number of value possible\n");
   else
     printf("Unknow error\n");
 }
