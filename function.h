@@ -10,6 +10,8 @@
 
 # include "erreur.h"
 
+#define M_PI 3.14159265358979323846
+
 /*
 ** enumeration used to list the differents mathematical functions
 */

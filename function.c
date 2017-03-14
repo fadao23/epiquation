@@ -56,18 +56,24 @@ float calcul_function(struct s_function *function, float val)
       res = cosf(val);
       break;
 		case ACOS:
+      if (val < -1 || val > 1)
+        set_erreur(8);
 			res = acosf(val);
 			break;
     case SIN:
       res = sinf(val);
       break;
 		case ASIN:
+      if (val < -1 || val > 1)
+        set_erreur(8);
 			res = asinf(val);
 			break;
 		case TAN:
 			res = tanf(val);
 			break;
 		case ATAN:
+      if (val < -M_PI || val > M_PI)
+        set_erreur(9);
 			res = atanf(val);
 			break;
     case POW:
@@ -86,49 +92,55 @@ float calcul_function(struct s_function *function, float val)
   }
   if(*get_erreur() > 0)
     return 0;
-  return calcul(function, res);
+  return pow(res, function->power) / function->mult;
 }
 
 float calcul_inverse(struct s_function *function, float val)
 {
-  float res = 0;
+  float res = val / function->mult;
   switch (*function->function)
   {
     case LN:
-      res = expf(val);
+      res = expf(res);
       break;
     case EXP:
       if (val <= 0)
         set_erreur(5);
-      res = logf(val);
+      res = logf(res);
       break;
     case ACOS:
-      res = cosf(val);
+      res = cosf(res);
       break;
 		case COS:
-			res = acosf(val);
+      if (val < -1 || val > 1)
+        set_erreur(8);
+			res = acosf(res);
 			break;
     case ASIN:
-      res = sinf(val);
+      res = sinf(res);
       break;
 		case SIN:
-			res = asinf(val);
+      if (val < -1 || val > 1)
+        set_erreur(8);
+			res = asinf(res);
 			break;
 		case ATAN:
-			res = tanf(val);
+			res = tanf(res);
 			break;
 		case TAN:
-			res = atanf(val);
+      if (val < -M_PI || val > M_PI)
+        set_erreur(9);
+			res = atanf(res);
 			break;
     case SQRT:
       if (1 / function->param == -1)
         set_erreur(4);
-      res = powf(val,1 / function->param);
+      res = powf(res, 1 / function->param);
       break;
    	case POW:
       if (val <= 0)
         set_erreur(6);
-			res = powf(val, 1 / function->param);
+			res = powf(res, 1 / function->param);
 			break;
 		default:
 			set_erreur(7);
@@ -136,7 +148,7 @@ float calcul_inverse(struct s_function *function, float val)
   }
   if(*get_erreur() > 0)
     return 0;
-  return calcul(function, res);
+  return pow(res, 1 / function->power);
 }
 
 float calcul(struct s_function *function, float val)
