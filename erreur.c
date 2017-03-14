@@ -31,11 +31,15 @@ void print_erreur(void)
   else if (*erreur == 4)
     printf("Division by zero\n");
   else if (*erreur == 5)
-    printf("Negative logarithm\n");
+    printf("Negative value on logarithm\n");
   else if (*erreur == 6)
-    printf("Negative sqrt\n");
+    printf("Negative value on sqrt\n");
   else if (*erreur == 7)
     printf("Unknow function\n");
+  else if (*erreur == 8)
+    printf("Value out of range on arcsin or arccos\n");
+  else if (*erreur == 9)
+    printf("Value out of range on arctan\n");
   else
     printf("Unknow error\n");
 }
