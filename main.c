@@ -13,7 +13,6 @@
 
 void sol(char *arg);
 
-
 int main(int argc,char **argv)
 {
   /* Déclaration du widget */
@@ -27,9 +26,8 @@ int main(int argc,char **argv)
   gtk_builder_connect_signals(builder,NULL);
 
   entry = GTK_ENTRY(gtk_builder_get_object(builder,"text_in"));
-  g_signal_connect(entry,"activated",G_CALLBACK(on_apply_clicked),entry);
+  g_signal_connect(entry,"activate",G_CALLBACK(on_apply_clicked),entry);
   out = GTK_LABEL(gtk_builder_get_object(builder,"text_out"));
-
   g_object_unref (G_OBJECT (builder));
   gtk_widget_show(MainWindow);
   gtk_main();
@@ -48,7 +46,7 @@ void on_apply_clicked()
   gtk_label_set_text(out,str);
   char *c = (char*)str;
   printf("%s\n",c);
-  sol(c);
+ // char *copie = c;
 }
 
 void sol(char *arg)
@@ -57,12 +55,12 @@ void sol(char *arg)
   printf("Equation nettoyee :\n%s\n", equation);
   struct s_tree *node = parse(equation);
 
-  /*if (*get_erreur())
+  if (*get_erreur())
   {
     print_erreur();
     free_erreur();
     //return -1;
-  }*/
+  }
 
   simplify_minus(&node, 1);
   float coef = 1;
@@ -73,13 +71,13 @@ void sol(char *arg)
 
   float res = solveur(node, 0, 1);
 
-  /*if (*get_erreur())
+  if (*get_erreur())
   {
     print_erreur();
     free_tree(node);
     free_erreur();
     return -1;
-  }*/
+  }
 	printf("x = %f\n", res);
   //const gchar *r = *res;
 
