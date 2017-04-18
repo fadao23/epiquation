@@ -19,7 +19,7 @@ int main(int argc,char **argv)
   gtk_init(&argc,&argv);
 
   builder = gtk_builder_new();
-  gtk_builder_add_from_file(builder, "ihm.glade", NULL);
+  gtk_builder_add_from_file(builder, "interface.glade", NULL);
 
   MainWindow = GTK_WIDGET(gtk_builder_get_object(builder,"MainWindow"));
 
@@ -46,11 +46,11 @@ void on_apply_clicked()
   gtk_label_set_text(out,str);
   char *c = (char*)str;
   printf("%s\n",c);
- // char *copie = c;
+  char *copie = c;
+  sol(copie);
 }
 
-void sol(char *arg)
-{
+void sol(char *arg) {
   char *equation = clean_string(arg);
   printf("Equation nettoyee :\n%s\n", equation);
   struct s_tree *node = parse(equation);
@@ -71,13 +71,13 @@ void sol(char *arg)
 
   float res = solveur(node, 0, 1);
 
-  if (*get_erreur())
+  /*if (*get_erreur())
   {
     print_erreur();
     free_tree(node);
     free_erreur();
     return -1;
-  }
+  }*/
 	printf("x = %f\n", res);
   //const gchar *r = *res;
 
