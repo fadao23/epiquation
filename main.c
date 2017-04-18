@@ -47,12 +47,15 @@ void on_apply_clicked()
   char *c = (char*)str;
   printf("%s\n",c);
   char *copie = c;
+  printf("%p\n",copie);
   sol(copie);
 }
 
 void sol(char *arg) {
   char *equation = clean_string(arg);
+  printf("%p\n",equation);
   printf("Equation nettoyee :\n%s\n", equation);
+  printf("%p\n",equation);
   struct s_tree *node = parse(equation);
 
   if (*get_erreur())
