@@ -6,6 +6,7 @@ struct s_tree *parse(char *equation)
 	int 						len;
 	struct s_tree 	*tree = NULL;
 
+  set_erreur(0);
 	rang = strchr(equation, '=');
 	if (rang == NULL)
 	  set_erreur(1);
@@ -62,7 +63,7 @@ struct s_tree *_parse(char *equation)
     free(sub_string);
 	}
 	else if (comp_regex(equation,
-  "^[a-z]{2,}\\([0-9a-z\\+-\\*/().]+(,[0-9]+)?\\)$"))//Function
+  "^[a-z]{2,}\\([0-9a-z\\+\\-\\*/().]+(,[0-9]+)?\\)$"))//Function
 	{
     lgth = strcspn(equation, "(");
     sub_string = calloc(lgth + 1, sizeof (char));
@@ -85,7 +86,7 @@ struct s_tree *_parse(char *equation)
     tree->left = _parse(sub_string);
     free(sub_string);
   }
-	else if (comp_regex(equation, "^\\([0-9a-z,\\+-\\*/().]+\\)$"))//parenthesys
+	else if (comp_regex(equation, "^\\([0-9a-z,\\+\\-\\*/().]+\\)$"))//parenthesys
 	{
 		sub_string = calloc(strlen(equation) - 1, sizeof (char));
 		strncpy(sub_string, equation + 1, strlen(equation) - 2);
@@ -128,6 +129,10 @@ int comp_regex(char *string, char *reg)
 	err_reg = regcomp(&regex, reg, REG_NOSUB | REG_EXTENDED | REG_NEWLINE);
 	if (err_reg)
   {
+  char *test = calloc(100,sizeof(char));
+  regerror(err_reg,&regex,test,100);
+  printf("%s\n",reg);
+  printf("%s\n",test);
   err(1, "Error initialising function regex");
 	}
   err_reg = regexec(&regex, string, 0, NULL, 0);

@@ -7,7 +7,7 @@
 GtkBuilder *builder;
 GtkWidget *MainWindow;
 GtkEntry *entry;
-GtkLabel *out;
-
+GtkLabel *out,*out2;
 
 void on_apply_clicked();
+void on_cancel_clicked();

@@ -1,6 +1,6 @@
 # Makefile
 
-CC=gcc # -fsanitize=address
+CC=gcc -fsanitize=address
 #CC=gcc
 CPPFLAGS=`pkg-config --cflags gtk+-3.0` -export-dynamic
 CFLAGS= -Wall -Wextra -std=c99 -O0 -g3
