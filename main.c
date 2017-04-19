@@ -19,12 +19,11 @@ int main(int argc,char **argv)
   gtk_builder_add_from_file(builder, "interface.glade", NULL);
 
   MainWindow = GTK_WIDGET(gtk_builder_get_object(builder,"MainWindow"));
-
+  //stack = GTK_WIDGET(gtk_builder_get_object(builder,"stack"));
+  //stack = gtk_stack_new ();
   gtk_builder_connect_signals(builder,NULL);
 
   entry = GTK_ENTRY(gtk_builder_get_object(builder,"text_in"));
-  //g_signal_connect(entry,"activate",G_CALLBACK(on_apply_clicked),entry);
- // g_signal_connect(entry,"activate",G_CALLBACK(on_cancel_clicked),NULL);
   out = GTK_LABEL(gtk_builder_get_object(builder,"text_out"));
   out2 = GTK_LABEL(gtk_builder_get_object(builder,"text_out2"));
   g_object_unref (G_OBJECT (builder));
@@ -37,6 +36,15 @@ int main(int argc,char **argv)
 void on_quit1_clicked()
 {
   gtk_main_quit();
+}
+void on_quit2_clicked()
+{
+  gtk_main_quit();
+}
+
+void on_Baffine_clicked()
+{
+  gtk_stack_set_visible_child_name(stack,"affine");
 }
 
 void on_cancel_clicked()
@@ -97,7 +105,6 @@ void sol(char *arg) {
   strcat(r,re);
   gtk_label_set_text(out2,r);
   free_tree(node);
-  c
   free(r);
   free(re);
   set_erreur(0);

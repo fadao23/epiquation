@@ -7,7 +7,12 @@
 GtkBuilder *builder;
 GtkWidget *MainWindow;
 GtkEntry *entry;
+GtkButton *quit2;
 GtkLabel *out,*out2;
+GtkStack *stack;
 
+void on_quit1_clicked();
+void on_quit2_clicked();
 void on_apply_clicked();
 void on_cancel_clicked();
+void on_Baffine_clicked();
