@@ -17,11 +17,6 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-cancel</property>
   </object>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-cancel</property>
-  </object>
   <object class="GtkImage" id="returnImg">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -111,7 +106,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="polynomes">
+                  <object class="GtkButton">
                     <property name="label" translatable="yes">Polynômes</property>
                     <property name="width_request">200</property>
                     <property name="height_request">30</property>
@@ -122,7 +117,6 @@
                     <property name="valign">start</property>
                     <property name="margin_left">10</property>
                     <property name="margin_right">10</property>
-                    <signal name="clicked" handler="on_polynomes_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">True</property>
@@ -197,51 +191,6 @@
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkPaned">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">end</property>
-                <child>
-                  <object class="GtkButton" id="return2">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="halign">end</property>
-                    <property name="valign">end</property>
-                    <property name="image">returnImg1</property>
-                    <property name="image_position">right</property>
-                    <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_return2_clicked" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="resize">False</property>
-                    <property name="shrink">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="quit3">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="halign">end</property>
-                    <property name="valign">end</property>
-                    <property name="image">image4</property>
-                    <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_quit3_clicked" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="resize">True</property>
-                    <property name="shrink">True</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -250,8 +199,11 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">0</property>
               </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
@@ -440,10 +392,5 @@
     <child type="titlebar">
       <placeholder/>
     </child>
-  </object>
-  <object class="GtkImage" id="returnImg1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-go-back</property>
   </object>
 </interface>
