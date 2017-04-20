@@ -13,23 +13,15 @@ void nrerror(char error_text[])
 	exit(1);
 }
 
-float *vector(long nl, long nh)
+float *vector(long nh)
 /* allocate a float vector with subscript range v[nl..nh] */
 {
-	float *v;
-
-	v=(float *)malloc((size_t) ((nh-nl+2)*sizeof(float)));
+	float *v = malloc(nh * sizeof(float));
 	if (!v) nrerror("allocation failure in vector()");
-	return v-nl+1;
+	return v;
 }
 
-void free_vector(float *v, long nl, long nh)
-/* free a float vector allocated with vector() */
-{
-	free((char*) (v+nl-1));
-}
-
-void ludcmp(float **a, int n, int *indx, float *d)
+void ludcmp(float **a, int n, int *indx)
 {
 	/*
 		a -> matrice carre remplacer en sortie par sa LU decomposition permutee
@@ -40,8 +32,7 @@ void ludcmp(float **a, int n, int *indx, float *d)
   int i,imax,j,k;
   float big,dum,sum,temp;
   float *vv;         //vv contient le coef multiplicateur de chaque ligne.
-  vv=vector(1,n);
-  *d=1.0;            //Pas encore de changement de ligne
+  vv=vector(n);
   for (i=0;i<n;i++) { //On parcours les lignes
     big=0.0;
     for (j=0;j<n;j++)
@@ -77,8 +68,7 @@ void ludcmp(float **a, int n, int *indx, float *d)
 					a[imax][k]=a[j][k];
 					a[j][k]=dum;
 				}
-				*d = -(*d);	//On change la parité de d
-				vv[imax]=vv[j]; //et le vecteur de coef
+				vv[imax]=vv[j]; //on change le vecteur de coef
 			}
 			indx[j]=imax;
 			if (a[j][j] == 0.0) a[j][j]=TINY;
@@ -87,7 +77,7 @@ void ludcmp(float **a, int n, int *indx, float *d)
 				for (i=j+1;i<n;i++) a[i][j] *= dum;
 			}
 	}
-	free_vector(vv,1,n);
+	free(vv);
 }
 
 void lubksb(float **a, int n, int *indx, float b[])
@@ -137,11 +127,10 @@ int main() {
 
   float b[3] = {1,2,3};
 
-	int indx[4] = {0,0,0,0};
-	float d = 1;
-	ludcmp(a, 3, indx, &d);
+	int indx[3] = {0,0,0};
+	ludcmp(a, 3, indx);
 
-	printf("%d %d %d %d\n", *indx, *(indx + 1), *(indx + 2), *(indx+3));
+	printf("%d %d %d\n", *indx, *(indx + 1), *(indx + 2));
 
 	for (int i = 0; i < 3; ++i) {
 		for (int j = 0; j < 3; ++j) {
