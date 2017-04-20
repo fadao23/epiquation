@@ -19,6 +19,7 @@ int main(int argc,char **argv)
   gtk_builder_add_from_file(builder, "interface.glade", NULL);
 
   MainWindow = GTK_WIDGET(gtk_builder_get_object(builder,"MainWindow"));
+  stack = GTK_WIDGET(gtk_builder_get_object(builder,"stack"));
   //stack = GTK_WIDGET(gtk_builder_get_object(builder,"stack"));
   //stack = gtk_stack_new ();
   gtk_builder_connect_signals(builder,NULL);
@@ -44,7 +45,7 @@ void on_quit2_clicked()
 
 void on_Baffine_clicked()
 {
-  gtk_stack_set_visible_child_name(stack,"affine");
+  gtk_stack_set_visible_child_name(GTK_STACK(stack),"page0");
 }
 
 void on_cancel_clicked()

@@ -5,11 +5,10 @@
 #include <SDL/SDL_image.h>
 
 GtkBuilder *builder;
-GtkWidget *MainWindow;
+GtkWidget *MainWindow,*stack;
 GtkEntry *entry;
 GtkButton *quit2;
 GtkLabel *out,*out2;
-GtkStack *stack;
 
 void on_quit1_clicked();
 void on_quit2_clicked();
