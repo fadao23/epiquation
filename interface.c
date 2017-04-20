@@ -1,37 +1,45 @@
-#include "interface.h"
+# include "interface.h"
 
-//void on_quit_clicked();
+char *solve_system(char **system, int n) {
+  void **pars = parsing_sys(system, n);
+  float *matrix = (float*)  *pars;
+  float *res    = (float*)  *(pars + 1);
+  char  *var    = (char*)   *(pars + 2);
 
-int main(int argc,char **argv)
-{
-  /* Déclaration du widget */
-  gtk_init(&argc,&argv);
+  int *indx = malloc(n * sizeof (int));
 
-  builder = gtk_builder_new();
-  gtk_builder_add_from_file(builder, "ihm.glade", NULL);
+  ludcmp(matrix, n, indx);
+  lubksb(matrix, n, indx, res);
+  char *s = calloc(100, sizeof (char));
+  for (int i = 0; i < n; ++i) {
+    strncat(s, (var + i), 1);
+    strcat(s, " = ");
+    char *tmp = calloc(20, sizeof (char));
+    sprintf(tmp, "%f\n", *(res + i));
+    strcat(s, tmp);
+  }
 
-  MainWindow = GTK_WIDGET(gtk_builder_get_object(builder,"MainWindow"));
+  free(indx);
+  free(matrix);
+  free(res);
+  free(var);
+  free(pars);
+  return s;
+}
 
-  gtk_builder_connect_signals(builder,NULL);
-
-  entry = GTK_ENTRY(gtk_builder_get_object(builder,"text_in"));
-  g_signal_connect(entry,"activated",G_CALLBACK(on_apply_clicked),entry);
-  out = GTK_LABEL(gtk_builder_get_object(builder,"text_out"));
-
-  g_object_unref (G_OBJECT (builder));
-  gtk_widget_show(MainWindow);
-  gtk_main();
+/*int main() {
+  float c[3][3] = {{1,3,6},{2,8,16},{5,21,45}};
+  float *a = malloc(9*sizeof (int));
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j <3; ++j)
+      *(a+i*3+j) = c[i][j];
+  }
+  char **system = malloc(3 * sizeof (char*));
+  *system = "1x+2b+5c=1";
+  *(system + 1) = "3x + 8b + 21c = 2";
+  *(system + 2) = "6x + 16b + 45c = 3";
+  char *s = solve_system(system, 3);
+  printf("%s", s);
 
   return 0;
-}
-
-void on_quit1_clicked()
-{
-  gtk_main_quit();
-}
-
-void on_apply_clicked()
-{
-  const gchar *str = gtk_entry_get_text(entry);
-  gtk_label_set_text(out,str);
-}
+}*/

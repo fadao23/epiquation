@@ -5,6 +5,8 @@
 # include <stdio.h>
 # include <err.h>
 # include "interface.h"
+# include "ihm.h"
+
 # include "parsing.h"
 
 

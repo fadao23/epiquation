@@ -1,32 +1,16 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <gtk/gtk.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
+// interface.h
 
-/* Vriables Objects */
-GtkBuilder *builder;
-GtkWidget *MainWindow,*stack;
-GtkEntry *entry;
-GtkButton *quit2;
-GtkLabel *out,*out2;
+# ifndef _EPIQUATION_INTERFACE_H_
+# define _EPIQUATION_INTERFACE_H_
 
-/* Foncitons */
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
 
-/* QUIT FONCTIONS */
-void on_quit1_clicked();
-void on_quit2_clicked();
-void on_quit3_clicked();
+# include "crout.h"
+# include "parsing.h"
 
-/* RETURN FONCTIONS */
-void on_return1_clicked();
-void on_return2_clicked();
+char *solve_system(char ** system,int n);
 
-/* AFFINE FONCTIONS */
-void on_apply_clicked();
-void on_cancel_clicked();
+# endif  /*_EPIQUATION_INTERFACE_H_*/
 
-/* MENU FONCTIONS */
-void on_Baffine_clicked();
-void on_polynomes_clicked();
-void sol(char *arg);
