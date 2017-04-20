@@ -53,4 +53,9 @@ char *clean_string(char *string);
 */
 int comp_regex(char *string, char *reg);
 
+void **parsing_sys(char **system, int n);
+int get_rang(char *vs, int n, char v);
+int get_next(char *s, int *i, char *v);
+char *clean(char *s, int max);
+
 # endif /* _EPIQUATION_PARSING_H_ */

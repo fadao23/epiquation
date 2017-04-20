@@ -21,7 +21,7 @@ float *vector(long nh)
 	return v;
 }
 
-void ludcmp(float **a, int n, int *indx)
+void ludcmp(float *a, int n, int *indx)
 {
 	/*
 		a -> matrice carre remplacer en sortie par sa LU decomposition permutee
@@ -36,7 +36,7 @@ void ludcmp(float **a, int n, int *indx)
   for (i=0;i<n;i++) { //On parcours les lignes
     big=0.0;
     for (j=0;j<n;j++)
-      if ((temp=fabs(a[i][j])) > big) big=temp;
+      if ((temp=fabs(*(a +i * n + j))) > big) big=temp;
     if (big == 0.0) nrerror("Singular matrix in routine ludcmp");
     //Le plus grand elem est > 0
     vv[i]=1.0/big; //On sauve le coef multiplicateur
@@ -44,18 +44,18 @@ void ludcmp(float **a, int n, int *indx)
   for (j=0;j<n;j++) { //On parcours les colonnes
     for (i=0;i<j;i++) {
       //This is equation (2.3.12) except for i = j.
-      sum=a[i][j];
-      for (k=0;k<i;k++) sum -= a[i][k]*a[k][j];
-        a[i][j]=sum;
+      sum=*(a+i*n+j);
+      for (k=0;k<i;k++) sum -= *(a+i*n+k)* *(a+k*n+j);
+        *(a+i*n+j)=sum;
       }
       big=0.0; //On recheche l'élément le plus grand
       for (i=j;i<n;i++) {
         //This is i = j of equation (2.3.12)
         //and i = j + 1 ... N of equation (2.3.13).
-        sum=a[i][j];
+        sum=*(a+i*n+j);
         for (k=0;k<j;k++)
-					sum -= a[i][k]*a[k][j];
-				a[i][j]=sum;
+					sum -= *(a+i*n+k)* *(a+k*n+j);
+				*(a+i*n+j)=sum;
 				if ( (dum=vv[i]*fabs(sum)) >= big) {
 					//Il existe un meilleur pivot
 					big=dum;
@@ -64,23 +64,23 @@ void ludcmp(float **a, int n, int *indx)
 			}
 			if (j != imax) { //Est-ce qu'il y a besoin de changer les lignes
 				for (k=0;k<n;k++) {
-					dum=a[imax][k];
-					a[imax][k]=a[j][k];
-					a[j][k]=dum;
+					dum=*(a+imax*n+k);
+					*(a+imax*n+k)=*(a+j*n+k);
+					*(a+j*n+k)=dum;
 				}
 				vv[imax]=vv[j]; //on change le vecteur de coef
 			}
 			indx[j]=imax;
-			if (a[j][j] == 0.0) a[j][j]=TINY;
+			if (*(a+j*n+j) == 0.0) *(a+j*n+j)=TINY;
 			if (j != n) { //On divise par le pivot
-				dum=1.0/(a[j][j]);
-				for (i=j+1;i<n;i++) a[i][j] *= dum;
+				dum=1.0/(*(a+j*n+j));
+				for (i=j+1;i<n;i++) *(a+i*n+j) *= dum;
 			}
 	}
 	free(vv);
 }
 
-void lubksb(float **a, int n, int *indx, float b[])
+void lubksb(float *a, int n, int *indx, float b[])
 /*
   Solves the set of n linear equations A·X = B. Here a[1..n][1..n] is input, not as the matrix
   A but rather as its LU decomposition, determined by the routine ludcmp . indx[1..n] is input
@@ -102,7 +102,7 @@ void lubksb(float **a, int n, int *indx, float b[])
     b[ip]=b[i];
     //only new wrinkle is to unscramble the permutation
     if (ii>-1) //as we go.
-      for (j=ii;j<i;j++) sum -= a[i][j]*b[j];
+      for (j=ii;j<i;j++) sum -= *(a+i*n+j)*b[j];
     else if (sum) ii=i;
     //A nonzero element was encountered, so from now on we
     b[i]=sum;
@@ -111,37 +111,9 @@ void lubksb(float **a, int n, int *indx, float b[])
   for (i=n-1;i>=0;i--) {
     //Now we do the backsubstitution, equation (2.3.7).
     sum=b[i];
-    for (j=i+1;j<n;j++) sum -= a[i][j]*b[j];
-    b[i]=sum/a[i][i];
+    for (j=i+1;j<n;j++) sum -= *(a+i*n+j)*b[j];
+    b[i]=sum/(*(a+i*n+i));
     //Store a component of the solution vector X.
   }
   //All done!
-}
-
-int main() {
-	float c[3][3] = {{1,3,6},{2,8,16},{5,21,45}};
-	float **a = malloc(9*sizeof (int));
-	*a = c[0];
-	*(a+1) = c[1];
-	*(a+2) = c[2];
-
-  float b[3] = {1,2,3};
-
-	int indx[3] = {0,0,0};
-	ludcmp(a, 3, indx);
-
-	printf("%d %d %d\n", *indx, *(indx + 1), *(indx + 2));
-
-	for (int i = 0; i < 3; ++i) {
-		for (int j = 0; j < 3; ++j) {
-			printf("%f  ", a[i][j]);
-		}
-		printf("\n");
-	}
-
-  lubksb(a, 3, indx, b);
-  for (int i = 0; i < 3; i++) {
-    printf("%f\n", b[i]);
-  }
-	return 0;
 }

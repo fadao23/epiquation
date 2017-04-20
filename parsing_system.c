@@ -1,4 +1,4 @@
-# include "parsing_system.h"
+# include "parsing.h"
 
 void **parsing_sys(char **system, int n)
 {
@@ -100,25 +100,4 @@ int comp_regex(char *string, char *reg)
 		return 0;
 	else
 		err(1, "Error executing function regex");
-}
-
-int main() {
-  int n = 3;
-  char **system = malloc(n * sizeof (char*));
-  *system = "3x+2b+3c=0";
-  *(system + 1) = "-2x + 2b + 7 = 0";
-  *(system + 2) = "3c + 2b = -1";
-  void **data = parsing_sys(system, n);
-  float *matrix =(float*) *data;
-  float *res =(float*) *(data+1);
-  char  *var =(char*) *(data+2);
-  for (int i = 0 ; i < n; ++i) {
-    for (int j = 0; j < n; j++)
-      printf("%f ", *(matrix + i * n + j));
-    printf("= %f\n", *(res + i));
-  }
-  for (int i = 0; i < n; ++i) {
-    printf("%c ",*(var + i));
-  }
-  printf("\n");
 }
