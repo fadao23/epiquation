@@ -7,8 +7,16 @@ CFLAGS= -Wall -Wextra -std=c99 -O0 -g3
 LDFLAGS=
 LDLIBS= -lm
 
-SRC= main.c function.c variable.c tree.c parsing.c operator.c\
-list.c build.c simplify.c solveur.c calcul.c test_tree.c erreur.c
+
+SRC= \
+	main.c \
+	tree/build.c tree/function.c tree/operator.c tree/test_tree.c \
+	tree/tree.c tree/variable.c \
+	parsing/pars_equat.c parsing/pars_syste.c parsing/trt_string.c \
+	controller/erreur.c controller/control.c \
+	calcul/calcul.c calcul/crout.c calcul/list.c calcul/simplify.c \
+	calcul/solveur.c
+
 OBJ= ${SRC:.c=.o}
 DEP= ${SRC:.c=.d}
 
@@ -19,6 +27,9 @@ all:main
 main: ${OBJ}
 
 clean:
+	rm -f ${OBJ}
+
+clean_all:
 	rm -f ${OBJ} ${DEP} main
 
 # END

@@ -4,10 +4,10 @@
 # define _EPIQUATION_CALCUL_H_
 
 # include <stdlib.h>
-# include "tree.h"
-# include "function.h"
-# include "operator.h"
 
+# include "../tree/function.h"
+# include "../tree/operator.h"
+# include "../tree/tree.h"
 
 /*
 **  multiplie_tree: make distribute the number  in factor

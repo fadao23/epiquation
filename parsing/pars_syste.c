@@ -82,22 +82,3 @@ char *clean(char *s, int max)
 	}
   return r;
 }
-
-int comp_regex(char *string, char *reg)
-{
-	regex_t regex;
-	int     err_reg = 0;
-	err_reg = regcomp(&regex, reg, REG_NOSUB | REG_EXTENDED | REG_NEWLINE);
-	if (err_reg)
-	{
-		err(1, "Error initialising function regex");
-	}
-	err_reg = regexec(&regex, string, 0, NULL, 0);
-	regfree(&regex);
-	if (!err_reg)
-		return 1;
-	else if (err_reg == REG_NOMATCH)
-		return 0;
-	else
-		err(1, "Error executing function regex");
-}

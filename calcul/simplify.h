@@ -5,12 +5,13 @@
 
 # include <stdlib.h>
 
-# include "function.h"
-# include "variable.h"
-# include "list.h"
-# include "tree.h"
-# include "build.h"
 # include "calcul.h"
+# include "list.h"
+
+# include "../tree/build.h"
+# include "../tree/function.h"
+# include "../tree/tree.h"
+# include "../tree/variable.h"
 
 /*
 **	simplify_plus: simplifies a tree by doing plus operation

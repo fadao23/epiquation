@@ -5,12 +5,13 @@
 
 # include <stdlib.h>
 
-# include "simplify.h"
 # include "list.h"
-# include "tree.h"
-# include "operator.h"
-# include "function.h"
-# include "variable.h"
+# include "simplify.h"
+
+# include "../tree/function.h"
+# include "../tree/operator.h"
+# include "../tree/tree.h"
+# include "../tree/variable.h"
 
 /*
 **	has_variable: check if a tree contain a variable

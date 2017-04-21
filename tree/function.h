@@ -8,7 +8,7 @@
 # include <string.h>
 # include <err.h>
 
-# include "erreur.h"
+# include "../controller/erreur.h"
 
 #define M_PI 3.14159265358979323846
 

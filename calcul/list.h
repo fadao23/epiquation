@@ -4,7 +4,8 @@
 # define _EPIQUATION_LIST_H_
 
 # include <stdlib.h>
-# include "tree.h"
+
+# include "../tree/tree.h"
 
 /* standard linked lists */
 struct s_list {

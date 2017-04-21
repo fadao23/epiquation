@@ -9,9 +9,10 @@
 # include <stdlib.h>
 # include <string.h>
 
-# include "tree.h"
-# include "build.h"
-# include "erreur.h"
+# include "../tree/build.h"
+# include "../tree/tree.h"
+
+# include "../controller/erreur.h"
 
 /*
 **	parse: get literal equation and transform it in Btree

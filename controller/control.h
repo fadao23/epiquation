@@ -7,8 +7,8 @@
 # include <stdio.h>
 # include <string.h>
 
-# include "crout.h"
-# include "parsing.h"
+# include "../calcul/crout.h"
+# include "../parsing/parsing.h"
 
 char *solve_system(char ** system,int n);
 

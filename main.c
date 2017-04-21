@@ -1,8 +1,8 @@
-# include "tree.h"
-# include "build.h"
-# include "solveur.h"
-# include "parsing.h"
-# include "erreur.h"
+# include "tree/tree.h"
+# include "tree/build.h"
+# include "calcul/solveur.h"
+# include "parsing/parsing.h"
+# include "controller/erreur.h"
 # include <stdio.h>
 # include <err.h>
 
@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
   if(argc < 2)
     err(1,"Missing Argument");
-  
+
   char *equation = clean_string(argv[1]);
   printf("Equation nettoyee :\n%s\n", equation);
   struct s_tree *node = parse(equation);
