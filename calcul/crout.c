@@ -1,23 +1,11 @@
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
+# include "crout.h"
 
 #define TINY 1.0e-20  //A small number.
-
-void nrerror(char error_text[])
-/* Numerical Recipes standard error handler */
-{
-	fprintf(stderr,"Numerical Recipes run-time error...\n");
-	fprintf(stderr,"%s\n",error_text);
-	fprintf(stderr,"...now exiting to system...\n");
-	exit(1);
-}
 
 float *vector(long nh)
 /* allocate a float vector with subscript range v[nl..nh] */
 {
 	float *v = malloc(nh * sizeof(float));
-	if (!v) nrerror("allocation failure in vector()");
 	return v;
 }
 
@@ -37,7 +25,7 @@ void ludcmp(float *a, int n, int *indx)
     big=0.0;
     for (j=0;j<n;j++)
       if ((temp=fabs(*(a +i * n + j))) > big) big=temp;
-    if (big == 0.0) nrerror("Singular matrix in routine ludcmp");
+    if (big == 0.0) set_erreur(11);
     //Le plus grand elem est > 0
     vv[i]=1.0/big; //On sauve le coef multiplicateur
   }

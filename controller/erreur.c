@@ -17,33 +17,36 @@ void set_erreur(int x)
   *erreur = x;
 }
 
-void print_erreur(void)
+char *get_string_erreur(int erreur)
 {
-  int *erreur = get_erreur();
-  if (*erreur == 0)
-    return;
-  if(*erreur == 1)
-    printf("No = symbole\n");
-  else if (*erreur == 2)
-    printf("More than one equal symbole\n");
-  else if (*erreur ==  3)
-    printf("Nothing match in parsing\n");
-  else if (*erreur == 4)
-    printf("Division by zero\n");
-  else if (*erreur == 5)
-    printf("Negative value on logarithm\n");
-  else if (*erreur == 6)
-    printf("Negative value on sqrt\n");
-  else if (*erreur == 7)
-    printf("Unknow function\n");
-  else if (*erreur == 8)
-    printf("Value out of range on arcsin or arccos\n");
-  else if (*erreur == 9)
-    printf("Value out of range on arctan\n");
-  else if (*erreur == 10)
-    printf("Infinite number of value possible\n");
-  else
-    printf("Unknow error\n");
+  switch (erreur) {
+    case 0:
+      return NULL;
+    case 1:
+      return "No = symbole\n";
+    case 2:
+      return "More than one equal symbole\n";
+    case 3:
+      return "Nothing match in parsing\n";
+    case 4:
+      return "Division by zero\n";
+    case 5:
+      return "Negative value on logarithm\n";
+    case 6:
+      return "Negative value on sqrt\n";
+    case 7:
+      return "Unknow function\n";
+    case 8:
+      return "Value out of range on arcsin or arccos\n";
+    case 9:
+      return "Value out of range on arctan\n";
+    case 10:
+      return "Infinite number of value possible\n";
+    case 11:
+       return "Singular matrix\n";
+    default:
+      return "Unknow error\n";
+  }
 }
 
 void free_erreur()

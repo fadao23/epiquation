@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
   if (*get_erreur())
   {
-    print_erreur();
+    printf("%s", get_string_erreur(*get_erreur()));
     free_erreur();
     return -1;
   }
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
   if (*get_erreur())
   {
-    print_erreur();
+    printf("%s", get_string_erreur(*get_erreur()));
     free_tree(node);
     free_erreur();
     return -1;

@@ -24,5 +24,8 @@ char *solve_system(char **system, int n) {
   free(res);
   free(var);
   free(pars);
+  int *err;
+  if (*(err = get_erreur()))
+    return get_string_erreur(*err);
   return s;
 }

@@ -10,7 +10,7 @@ int *get_erreur(void);
 
 void set_erreur(int x);
 
-void print_erreur(void);
+char *get_string_erreur(int erreur);
 
 void free_erreur();
 

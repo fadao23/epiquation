@@ -7,7 +7,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-void nrerror(char error_text[]);
+# include "../controller/erreur.h"
+
 float *vector(long nh);
 void ludcmp(float *a, int n, int *indx);
 void lubksb(float *a, int n, int *indx, float b[]);
