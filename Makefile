@@ -14,7 +14,7 @@ SRC= \
 	parsing/pars_equat.c parsing/pars_syste.c parsing/trt_string.c \
 	controller/erreur.c controller/control.c \
 	calcul/calcul.c calcul/crout.c calcul/list.c calcul/simplify.c \
-	calcul/solveur.c
+	calcul/solveur.c calcul/polynomes.c
 
 OBJ= ${SRC:.c=.o}
 DEP= ${SRC:.c=.d}

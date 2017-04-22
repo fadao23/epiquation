@@ -1,15 +1,17 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <gtk/gtk.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <gtk/gtk.h>
+# include <SDL/SDL.h>
+# include <SDL/SDL_image.h>
+
+# include "controller/control.h"
 
 /* Vriables Objects */
 GtkBuilder *builder;
 GtkWidget *MainWindow,*stack;
-GtkEntry *entry;
+GtkEntry *entry, *pol_a, *pol_b, *pol_c, *pol_d;
 GtkButton *quit2;
-GtkLabel *out,*out2;
+GtkLabel *out,*out2, *out_pol;
 
 /* Foncitons */
 

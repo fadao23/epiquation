@@ -37,6 +37,23 @@ char *solve_equation(char *arg) {
   return r;
 }
 
+char *solve_polynome(const char **coefs) {
+  float a = get_float(*coefs);
+  float b = get_float(*(coefs + 1));
+  float c = get_float(*(coefs + 2)) - get_float(*(coefs + 3));
+  float *res = malloc(3 * sizeof (float));
+  int nb_rac = sec_deg(a, b, c, res);
+  char *s_res = calloc(200, sizeof (char));
+  sprintf(s_res, "Le polynome à un delta:\n d = b²-4ac = %.3f\n\nIl a donc %d racines réel:\n",
+  *res, nb_rac);
+  if (nb_rac == 1)
+    sprintf(s_res,"%s x = (-b)/(2a) = %.3f\n", s_res, *(res + 1));
+  else if (nb_rac == 2)
+    sprintf(s_res,"%s x1 = (-b-sqrt(d))/(2a) = %.3f\n x2 =  (-b+sqrt(d))/(2a) = %.3f\n", s_res, *(res + 1), *(res + 2));
+  free(res);
+  return s_res;
+}
+
 char *solve_system(char **system, int n) {
   void **pars = parsing_sys(system, n);
   float *matrix = (float*)  *pars;

@@ -1,5 +1,11 @@
 # include "parsing.h"
 
+float get_float(const char *string) {
+  float res;
+  sscanf(string, "%f", &res);
+  return res;
+}
+
 char *clean_string(char *string)
 {
 	int lgt = strlen(string) + 1, cpt = 0, i;

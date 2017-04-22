@@ -1,9 +1,4 @@
-# include <err.h>
-# include <stdio.h>
-
 # include "ihm.h"
-# include "controller/control.h"
-
 
 int main(int argc,char **argv)
 {
@@ -32,6 +27,7 @@ int main(int argc,char **argv)
   pol_b = GTK_ENTRY(gtk_builder_get_object(builder,"coef_x"));
   pol_c = GTK_ENTRY(gtk_builder_get_object(builder,"coef"));
   pol_d = GTK_ENTRY(gtk_builder_get_object(builder,"pol_res"));
+  out_pol = GTK_LABEL(gtk_builder_get_object(builder,"res_pol"));
 
   /* Build and set window*/
   g_object_unref (G_OBJECT (builder));
@@ -110,14 +106,19 @@ void on_cancel_p_clicked()
   gtk_entry_set_text(pol_b,"");
   gtk_entry_set_text(pol_c,"");
   gtk_entry_set_text(pol_d,"");
+  gtk_label_set_text(out_pol, "");
 }
 
 void on_apply_p_clicked()
 {
-  char **param = malloc(4 * sizeof (char*));
+  const char **param = malloc(4 * sizeof (char*));
   *param = gtk_entry_get_text(pol_a);
   *(param + 1) = gtk_entry_get_text(pol_b);
   *(param + 2) = gtk_entry_get_text(pol_c);
   *(param + 3) = gtk_entry_get_text(pol_d);
+  char *res = solve_polynome(param);
+  free(param);
+  gtk_label_set_text(out_pol, res);
+  free(res);
 }
 

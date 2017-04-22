@@ -59,4 +59,5 @@ int get_rang(char *vs, int n, char v);
 int get_next(char *s, int *i, char *v);
 char *clean(char *s, int max);
 
+float get_float(const char *string);
 # endif /* _EPIQUATION_PARSING_H_ */
