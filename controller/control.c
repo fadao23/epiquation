@@ -31,13 +31,8 @@ char *solve_equation(char *arg) {
   }
 
   char *r = calloc(200,sizeof(char));
-  char *re = calloc(100,sizeof(char));
-  char *test = "x = ";
-  strcat(r,test);
-  sprintf(re,"%f",res);
-  strcat(r,re);
+  sprintf(r,"x = %f",res);
   free_tree(node);
-  free(re);
   set_erreur(0);
   return r;
 }
