@@ -64,7 +64,7 @@
                 <property name="valign">end</property>
                 <property name="image">image2</property>
                 <property name="always_show_image">True</property>
-                <signal name="clicked" handler="on_quit2_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -213,7 +213,7 @@
                     <property name="image">returnImg1</property>
                     <property name="image_position">right</property>
                     <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_return2_clicked" swapped="no"/>
+                    <signal name="clicked" handler="on_return_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">False</property>
@@ -229,7 +229,7 @@
                     <property name="valign">end</property>
                     <property name="image">image4</property>
                     <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_quit3_clicked" swapped="no"/>
+                    <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">True</property>
@@ -457,7 +457,7 @@
                     <property name="image">returnImg</property>
                     <property name="image_position">right</property>
                     <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_return1_clicked" swapped="no"/>
+                    <signal name="clicked" handler="on_return_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">False</property>
@@ -473,7 +473,7 @@
                     <property name="valign">end</property>
                     <property name="image">image1</property>
                     <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_quit1_clicked" swapped="no"/>
+                    <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">True</property>
@@ -628,7 +628,7 @@
                     <property name="image">returnImg2</property>
                     <property name="image_position">right</property>
                     <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_return3_clicked" swapped="no"/>
+                    <signal name="clicked" handler="on_return_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">False</property>
@@ -644,7 +644,7 @@
                     <property name="valign">end</property>
                     <property name="image">image5</property>
                     <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_quit4_clicked" swapped="no"/>
+                    <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">True</property>

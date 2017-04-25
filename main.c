@@ -47,38 +47,16 @@ int main(int argc,char **argv)
 }
 
 /* ---------------------- QUIT && RETURN BUTTONS ---------------- */
-void on_quit1_clicked()
-{
-  gtk_main_quit();
-}
-void on_quit2_clicked()
-{
-  gtk_main_quit();
-}
-void on_quit3_clicked()
+void on_quit_clicked()
 {
   gtk_main_quit();
 }
 
-void on_quit4_clicked()
-{
-  gtk_main_quit();
-}
-
-void on_return1_clicked()
+void on_return_clicked()
 {
   gtk_stack_set_visible_child_name(GTK_STACK(stack),"page1");
 }
 
-void on_return2_clicked()
-{
-  gtk_stack_set_visible_child_name(GTK_STACK(stack),"page1");
-}
-
-void on_return3_clicked()
-{
-  gtk_stack_set_visible_child_name(GTK_STACK(stack),"page1");
-}
 /* --------------------------------------------------------------*/
 
 
