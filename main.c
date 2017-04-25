@@ -29,6 +29,15 @@ int main(int argc,char **argv)
   pol_d = GTK_ENTRY(gtk_builder_get_object(builder,"pol_res"));
   out_pol = GTK_LABEL(gtk_builder_get_object(builder,"res_pol"));
 
+  /* Setting entry text zone for System and out text zone*/
+  sys_in = GTK_ENTRY(gtk_builder_get_object(builder,"sys_in"));
+  sys_recap = GTK_LABEL(gtk_builder_get_object(builder,"sys_recap"));
+  sys_out = GTK_LABEL(gtk_builder_get_object(builder,"sys_out"));
+  max_sys = 10;
+  nb_sys = 0;
+  sys = malloc(max_sys * sizeof (char*));
+
+
   /* Build and set window*/
   g_object_unref (G_OBJECT (builder));
   gtk_widget_show(MainWindow);
@@ -72,6 +81,11 @@ void on_Baffine_clicked()
 void on_polynomes_clicked()
 {
   gtk_stack_set_visible_child_name(GTK_STACK(stack),"page2");
+}
+
+void on_systeme_clicked()
+{
+  gtk_stack_set_visible_child_name(GTK_STACK(stack),"page3");
 }
 /* --------------------------------------------------------------*/
 
@@ -122,3 +136,42 @@ void on_apply_p_clicked()
   free(res);
 }
 
+/* --------------------------- SYSTEM ----------------------------*/
+void on_add_sys_clicked()
+{
+  if (nb_sys == max_sys) {
+    max_sys *= 2;
+    sys = realloc(sys, max_sys * sizeof (char*));
+  }
+  const char *tmp = gtk_entry_get_text(sys_in);
+  *(sys + nb_sys) = malloc((strlen(tmp) + 10) * sizeof (char));
+  strcpy(*(sys + nb_sys), tmp);
+  char *s = calloc(500, sizeof (char));
+  const char *lab = gtk_label_get_text(sys_recap);
+  sprintf(s,"%s\n%s", lab, *(sys + nb_sys));
+  nb_sys++;
+  gtk_label_set_text(sys_recap,s);
+  gtk_entry_set_text(sys_in, "");
+}
+
+void on_apply_sys_clicked()
+{
+  gtk_label_set_text(sys_out, solve_system(sys, nb_sys));
+  for (int i = 0; i < nb_sys; ++i) {
+    free(*(sys + i));
+    *(sys + i) = NULL;
+  }
+  nb_sys = 0;
+}
+
+void on_cancel_sys_clicked()
+{
+  gtk_entry_set_text(sys_in, "");
+  gtk_label_set_text(sys_recap, "");
+  gtk_label_set_text(sys_out, "");
+  for (int i = 0; i < nb_sys; ++i) {
+    free(*(sys + i));
+    *(sys + i) = NULL;
+  }
+  nb_sys = 0;
+}
