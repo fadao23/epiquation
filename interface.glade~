@@ -628,7 +628,6 @@
                     <property name="image">returnImg2</property>
                     <property name="image_position">right</property>
                     <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_return3_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">False</property>
@@ -644,7 +643,6 @@
                     <property name="valign">end</property>
                     <property name="image">image5</property>
                     <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_quit4_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">True</property>
