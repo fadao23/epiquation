@@ -3,7 +3,7 @@
 void **parsing_sys(char **system, int n)
 {
   char *v = calloc(n, sizeof (char));
-  float *matrix = malloc(n * n * sizeof (float));
+  float *matrix = calloc(n * n, sizeof (float));
   float *res = calloc(n, sizeof (float));
 	for (int i = 0; i < n; i++)
 	{
@@ -17,10 +17,12 @@ void **parsing_sys(char **system, int n)
       float tmp;
 			if(t == 1) {
         int rng = get_rang(v, n, var);
-        if(rng > -1)
+        if(rng > -1){
           sscanf(coef,"%f",(matrix + i * n + rng));
-        else {
+          printf("%f ",*(matrix + i * n + rng));
+        } else {
           sscanf(coef,"%f", &tmp);
+          printf("\n");
           *(res + i) -= tmp;
         }
       }
