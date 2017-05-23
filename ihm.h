@@ -9,7 +9,7 @@
 
 /* Variables Objects */
 GtkBuilder *builder;
-GtkWidget *MainWindow,*stack;
+GtkWidget *MainWindow,*stack, *stack2;
 GtkEntry *entry, *pol_a, *pol_b, *pol_c, *pol_d, *sys_in;
 GtkButton *quit2;
 GtkLabel *out,*out2, *out_pol, *sys_recap, *sys_out;
@@ -34,5 +34,8 @@ void on_cancel_clicked();
 
 /* MENU FUNCTIONS */
 void on_Baffine_clicked();
-void on_polynomes_clicked();
+//void on_polynomes_clicked();
+//void on_derpirm_clicked();
+//void on_derive_clicked();
+//void on_primitive_clicked();
 void sol(char *arg);

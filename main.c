@@ -12,6 +12,7 @@ int main(int argc,char **argv)
   /* Initialisation of Mainwindow and stack */
   MainWindow = GTK_WIDGET(gtk_builder_get_object(builder,"MainWindow"));
   stack = GTK_WIDGET(gtk_builder_get_object(builder,"stack"));
+ // stack2 = GTK_WIDGET(gtk_builder_get_object(builder,"stack2"));
 
   /* Setting signals */
   gtk_builder_connect_signals(builder,NULL);
@@ -74,6 +75,11 @@ void on_polynomes_clicked()
 void on_systeme_clicked()
 {
   gtk_stack_set_visible_child_name(GTK_STACK(stack),"page3");
+}
+
+void on_derprim_clicked()
+{
+  gtk_stack_set_visible_child_name(GTK_STACK(stack),"page4");
 }
 /* --------------------------------------------------------------*/
 
@@ -163,3 +169,15 @@ void on_cancel_sys_clicked()
   }
   nb_sys = 0;
 }
+
+
+/* --------------------------- DER/PRI ----------------------------*/
+/*void on_derive_clicked()
+{
+  gtk_stack_set_visible_child_name(GTK_STACK(stack2),"pagede");
+}
+void on_primitive_clicked()
+{
+  gtk_stack_set_visible_child_name(GTK_STACK(stack2),"pagepri");
+}*/
+
