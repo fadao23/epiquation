@@ -22,7 +22,6 @@ int main(int argc,char **argv)
   out = GTK_LABEL(gtk_builder_get_object(builder,"text_out"));
   out2 = GTK_LABEL(gtk_builder_get_object(builder,"text_out2"));
 
-
   /* Setting entry text zone for Polynome and out text zone*/
   pol_a = GTK_ENTRY(gtk_builder_get_object(builder,"coef_x2"));
   pol_b = GTK_ENTRY(gtk_builder_get_object(builder,"coef_x"));
@@ -38,6 +37,9 @@ int main(int argc,char **argv)
   nb_sys = 0;
   sys = malloc(max_sys * sizeof (char*));
 
+  /* Setting entry text zone for Derivate and out text zone*/
+  D_entry = GTK_ENTRY(gtk_builder_get_object(builder,"D_text_in"));
+  D_out = GTK_LABEL(gtk_builder_get_object(builder,"D_text_out"));
 
   /* Build and set window*/
   g_object_unref (G_OBJECT (builder));
@@ -77,9 +79,14 @@ void on_systeme_clicked()
   gtk_stack_set_visible_child_name(GTK_STACK(stack),"page3");
 }
 
-void on_derprim_clicked()
+void on_deriv_clicked()
 {
   gtk_stack_set_visible_child_name(GTK_STACK(stack),"page4");
+}
+
+void on_primitive_clicked()
+{
+  gtk_stack_set_visible_child_name(GTK_STACK(stack),"page5");
 }
 /* --------------------------------------------------------------*/
 
@@ -172,12 +179,24 @@ void on_cancel_sys_clicked()
 
 
 /* --------------------------- DER/PRI ----------------------------*/
-/*void on_derive_clicked()
-{
-  gtk_stack_set_visible_child_name(GTK_STACK(stack2),"pagede");
-}
-void on_primitive_clicked()
-{
-  gtk_stack_set_visible_child_name(GTK_STACK(stack2),"pagepri");
-}*/
 
+void on_Dcancel_clicked()
+{
+  const gchar *ttr = "";
+  gtk_entry_set_text(D_entry,"");
+  gtk_label_set_text(D_out,ttr);
+  return;
+}
+
+/*void on_Dapply_clicked()
+{
+  const gchar *str = gtk_entry_get_text(D_entry);
+  gtk_label_set_text(D_out,str);
+  char *copie = calloc(200,sizeof(char));
+  strcpy(copie,str);
+  char *res = //FUNC DERIVATE HERE
+  gtk_label_set_text(out2, res);
+  gtk_entry_set_text(entry,"");
+  free(copie);
+  free(res);
+}*/
