@@ -1,3 +1,5 @@
+# include "derivate.h"
+
 struct s_tree *deriv_exp(struct s_tree *node)
 {
 	struct s_tree *new = build_operator("*");
