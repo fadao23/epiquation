@@ -1,4 +1,4 @@
-# include "derivate"
+# include "derivate.h"
 
 
 int contain_var (struct s_tree *node)
@@ -24,44 +24,33 @@ struct s_tree *deriv (struct s_tree *node)
 
 struct s_tree *deriv_func (struct s_tree *node)
 {
-  if (node->data->function == EXP)
-	{
+  if (*((struct s_function*)node->data)->function == EXP)
 	  return deriv_exp(node);
-  }
-	else if (node->data->function == LN)
-	{/*
-		new = build_operator("*");
-    new->left = deriv(node->left);
-		new->right = build_function("pow");
-    new->right-> = node->data->param; // ?
-		new->right->power = -1;
-	*/
+	else if (*((struct s_function*)node->data)->function == LN)
 		return deriv_ln(node);
-	}
-	else if (node->data->function ==  POW)
-	{/*
-		new = build_operator("*");
-		new->left = deriv(node->data->param)
-	*/
+	else if (*((struct s_function*)node->data)->function ==  POW)
 		return deriv_pow(node);
-	}
-	else if (node->data->function ==  SQRT)
+	else if (*((struct s_function*)node->data)->function ==  SQRT)
 		return deriv_sqrt(node);
-	
-	else if (node->data->function == SIN)
+	else if (*((struct s_function*)node->data)->function == SIN)
 		return deriv_sin(node);
-	
-	else if (node->data->function == COS)
+	else if (*((struct s_function*)node->data)->function == COS)
 		return deriv_cos(node);
+  return NULL;
 }
 
 
 struct s_tree *deriv_var (struct s_tree *node)
 {
-	struct s_tree *new = build_variable(node->data->name);
-	((struct s_var*)new->data)->mult 
-    = ((struct s_var*) node->data)->mult * ((struct s_var*)node->data)->power;
-	((struct s_var*)new->data)->power = ((struct s_var*) node->data)->power - 1;
+  if (((struct s_variable*) node->data)->power == 1){
+    float *val = malloc(sizeof(float));
+    *val = ((struct s_variable*) node->data)->mult;
+    return build_float(val);
+  }
+  struct s_tree *new = build_variable(&((struct s_variable*)node->data)->name);
+	((struct s_variable*)new->data)->mult
+    = ((struct s_variable*) node->data)->mult * ((struct s_variable*)node->data)->power;
+	((struct s_variable*)new->data)->power = ((struct s_variable*) node->data)->power - 1;
 	return new;
 }
 
@@ -69,14 +58,14 @@ struct s_tree *deriv_var (struct s_tree *node)
 struct s_tree *deriv_op (struct s_tree *node)
 {
 	struct s_tree *new;
-	if (*(node->data) == TIME)
+	if (*((enum e_operator*)node->data) == TIME)
 	{
-		new = build_operator("+");
-		new->left = build_operator("*");
+		new = build_operator('+');
+		new->left = build_operator('*');
 		new->left->left = deriv(node->left);
 		new->left->right = node->right;
 	
-		new->right = build_operator("*");
+		new->right = build_operator('*');
 		new->right->left = deriv(node->right);
     new->right->right = node->left;
 	}

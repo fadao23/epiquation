@@ -188,15 +188,17 @@ void on_Dcancel_clicked()
   return;
 }
 
-/*void on_Dapply_clicked()
+void on_Dapply_clicked()
 {
+
   const gchar *str = gtk_entry_get_text(D_entry);
   gtk_label_set_text(D_out,str);
   char *copie = calloc(200,sizeof(char));
   strcpy(copie,str);
-  char *res = //FUNC DERIVATE HERE
-  gtk_label_set_text(out2, res);
+  derivate_equation(copie);
+  //char *res = derivate_equation(copie);
+  /*gtk_label_set_text(out2, res);
   gtk_entry_set_text(entry,"");
   free(copie);
-  free(res);
-}*/
+  free(res);*/
+}

@@ -13,13 +13,12 @@ void _tree_to_string(struct s_tree *tree)
   switch (tree->type)
   {
     case OPERAND:
-      enum e_operator cur = *((enum e_operator*)tree->data);
-      if (cur == PLUS)
+      if (*((enum e_operator*)tree->data) == PLUS)
         printf("(");
       _tree_to_string(tree->left);
-      operand_to_string(cur);
+      operand_to_string(*((enum e_operator*)tree->data));
       _tree_to_string(tree->right);
-      if (cur == PLUS)
+      if (*((enum e_operator*)tree->data) == PLUS)
         printf(")");
       break;
     case FUNCTION:
@@ -36,6 +35,8 @@ void _tree_to_string(struct s_tree *tree)
     case VARIABLE:
       printf("%.1f%c", ((struct s_variable*)tree->data)->mult,
           ((struct s_variable*)tree->data)->name);
+      if (((struct s_variable*)tree->data)->power != 1)
+        printf("^%d",((struct s_variable*)tree->data)->power);
       break;
     case VALUE:
       printf("%03.2f", *((float*)tree->data));

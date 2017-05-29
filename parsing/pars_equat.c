@@ -1,33 +1,36 @@
 # include "parsing.h"
 
-struct s_tree *parse(char *equation)
+struct s_tree *parse(char *equation, int solv)
 {
 	char 						*rang, *sub_string;
 	int 						len;
 	struct s_tree 	*tree = NULL;
 
   set_erreur(0);
-	rang = strchr(equation, '=');
-	if (rang == NULL)
-	  set_erreur(1);
-  else if (rang != strrchr(equation, '='))
-	  set_erreur(2);
-	else
-	{
-    tree = build_operator(*(rang));
+	if (solv) {
+    rang = strchr(equation, '=');
+	  if (rang == NULL)
+	    set_erreur(1);
+    else if (rang != strrchr(equation, '='))
+	    set_erreur(2);
+	  else
+	  {
+      tree = build_operator(*(rang));
 
-    len = rang - equation;
-		sub_string = calloc(len + 1, sizeof (char));
-		strncpy(sub_string, equation, len);
-		tree->left = _parse(sub_string);
-		free(sub_string);
+      len = rang - equation;
+		  sub_string = calloc(len + 1, sizeof (char));
+		  strncpy(sub_string, equation, len);
+		  tree->left = _parse(sub_string);
+		  free(sub_string);
 
-    sub_string = calloc(strlen(equation) - len + 1, sizeof (char));
-		strcpy(sub_string, rang + 1);
-    tree->right = _parse(sub_string);
-		free(sub_string);
-	}
-	return tree;
+      sub_string = calloc(strlen(equation) - len + 1, sizeof (char));
+		  strcpy(sub_string, rang + 1);
+      tree->right = _parse(sub_string);
+		  free(sub_string);
+	  }
+	  return tree;
+  }
+  return _parse(equation);
 }
 
 struct s_tree *_parse(char *equation)

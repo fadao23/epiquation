@@ -189,3 +189,19 @@ void simplify_mult(struct s_tree **node, struct s_list *list, float *coef, int k
 		}
 	}
 }
+
+void simplify_pow(struct s_tree **node) {
+  if(!*node)
+    return;
+  if ((*node)->type == FUNCTION && (*((struct s_function*)(*node)->data)->function == POW)) {
+    if ((*node)->left->type == VARIABLE) {
+      ((struct s_variable*)(*node)->left->data)->power *= ((struct s_function*)(*node)->data)->param;
+      (*node) = (*node)->left;
+    }
+    else
+      simplify_pow(&(*node)->left);
+    return;
+  }
+  simplify_pow(&(*node)->left);
+  simplify_pow(&(*node)->right);
+}

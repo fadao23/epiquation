@@ -948,13 +948,14 @@
                 <property name="margin_top">10</property>
                 <child>
                   <object class="GtkButton" id="Dapply">
-                    <property name="label" translatable="yes">Aplly</property>
+                    <property name="label" translatable="yes">Apply</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="image">image10</property>
                     <property name="use_underline">True</property>
                     <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="on_Dapply_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="resize">False</property>

@@ -13,6 +13,8 @@
 # include "../calcul/polynomes.h"
 # include "../parsing/parsing.h"
 # include "../tree/tree.h"
+# include "../tree/test_tree.h"
+# include "../tree/derivate.h"
 # include "../tree/build.h"
 
 char *solve_equation(char *arg);
@@ -21,5 +23,6 @@ char *solve_polynome(const char **coefs);
 
 char *solve_system(char **system,int n);
 
+char *derivate_equation(char *arg);
 # endif  /*_EPIQUATION_CONTROL_H_*/
 

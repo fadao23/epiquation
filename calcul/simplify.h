@@ -58,4 +58,5 @@ struct s_tree *rebuild_tree(struct s_list *list, float coef, int mult);
 void simplify_mult(struct s_tree **node, struct s_list *list, float *coef,
   int krisbool);
 
+void simplify_pow(struct s_tree **node);
 # endif /* _EPIQUATION_SIMPLIFY_H_ */

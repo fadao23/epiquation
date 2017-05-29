@@ -3,7 +3,7 @@
 char *solve_equation(char *arg) {
   char *equation = clean_string(arg);
   printf("Equation nettoyee :\n%s\n", equation);
-  struct s_tree *node = parse(equation);
+  struct s_tree *node = parse(equation, 1);
   free(equation);
   int *err;
   if (*(err = get_erreur()))
@@ -87,3 +87,42 @@ char *solve_system(char **system, int n) {
     return get_string_erreur(*err);
   return s;
 }
+
+char *derivate_equation(char *arg) {
+  char *equation = clean_string(arg);
+  printf("Equation nettoyee :\n%s\n", equation);
+  struct s_tree *node = parse(equation, 0);
+  free(equation);
+  int *err;
+  if (*(err = get_erreur()))
+  {
+    char *s_err = get_string_erreur(*err);
+    set_erreur(0);
+    return s_err;
+  }
+
+  simplify_minus(&node, 1);
+  float coef = 1;
+
+  simplify_mult(&node, NULL, &coef, 0);
+
+  simplify_plus(&node, NULL, &coef, 0);
+  simplify_pow(&node);
+  tree_to_string(node);
+  struct s_tree *res = deriv(node);
+  
+  if (*(err = get_erreur()))
+  {
+    char *s_err = get_string_erreur(*err);
+    set_erreur(0);
+    free_tree(node);
+    return s_err;
+  }
+
+  //char *r = calloc(200,sizeof(char));
+  tree_to_string(res);
+  free_tree(node);
+  set_erreur(0);
+  return "";
+}
+

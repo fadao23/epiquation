@@ -10,6 +10,7 @@ LDLIBS=`pkg-config --libs gtk+-3.0` `pkg-config --libs sdl`  -lSDL_image -export
 SRC= \
 	main.c \
 	tree/build.c tree/function.c tree/operator.c tree/test_tree.c \
+	tree/derivate.c tree/deriv_func.c tree/test_tree.c \
 	tree/tree.c tree/variable.c \
 	parsing/pars_equat.c parsing/pars_syste.c parsing/trt_string.c \
 	controller/erreur.c controller/control.c \

@@ -20,7 +20,7 @@
 **	parse start the creation of the tree, it checks the presence of the equal
 **	sign in [equation]
 */
-struct s_tree *parse(char *equation);
+struct s_tree *parse(char *equation, int solv);
 
 /*
 **	_parse: get a part of an equation and transform it into a BTree
