@@ -1,12 +1,13 @@
 # include "test_tree.h"
 
-void tree_to_string(struct s_tree *tree)
+char *tree_to_string(struct s_tree *tree)
 {
+  char *rep = calloc(200, sizeof (char));
   _tree_to_string(tree);
-  printf("\n");
+  return rep;
 }
 
-void _tree_to_string(struct s_tree *tree)
+void _tree_to_string(struct s_tree *tree, char *rep)
 {
   if(!tree)
     return;
@@ -14,79 +15,79 @@ void _tree_to_string(struct s_tree *tree)
   {
     case OPERAND:
       if (*((enum e_operator*)tree->data) == PLUS)
-        printf("(");
+        strcat(rep, "(");
       _tree_to_string(tree->left);
       operand_to_string(*((enum e_operator*)tree->data));
       _tree_to_string(tree->right);
       if (*((enum e_operator*)tree->data) == PLUS)
-        printf(")");
+        strcat(rep, ")");
       break;
     case FUNCTION:
       function_to_string(*(((struct s_function*)tree->data)->function));
-      printf("(");
+      strcat(rep, "(");
       _tree_to_string(tree->left);
       if(tree->right != NULL)
       {
-        printf(",");
+        strcat(rep, ",");
         _tree_to_string(tree->right);
       }
-      printf(")");
+      strcat(rep, ")");
       break;
     case VARIABLE:
-      printf("%.1f%c", ((struct s_variable*)tree->data)->mult,
+      sprintf(rep, "%s%.1f%c",rep, ((struct s_variable*)tree->data)->mult,
           ((struct s_variable*)tree->data)->name);
       if (((struct s_variable*)tree->data)->power != 1)
-        printf("^%d",((struct s_variable*)tree->data)->power);
+        sprintf(rep, "%s^%d", rep, ((struct s_variable*)tree->data)->power);
       break;
     case VALUE:
-      printf("%03.2f", *((float*)tree->data));
+      sprintf(rep, "%s%03.2f",rep, *((float*)tree->data));
       break;
   }
 }
 
-void function_to_string(enum e_function function)
+void function_to_string(enum e_function function, char *rep)
 {
   switch (function)
   {
     case EXP:
-      printf("exp");
+      strcat(rep, "exp");
       break;
     case LN:
-      printf("ln");
+      strcat(rep, "ln");
       break;
     case SQRT:
-      printf("sqrt");
+      strcat(rep, "sqrt");
       break;
     case POW:
-      printf("pow");
+      strcat(rep, "pow");
       break;
     case COS:
-      printf("cos");
+      strcat(rep, "cos");
       break;
     case SIN:
-      printf("sin");
+      strcat(rep, "sin");
       break;
-  	default:
-			printf("Unknown");
-			break;
-	}
+    default:
+      strcat(rep, "Unknown");
+      break;
+  }
 }
 
-void operand_to_string(enum e_operator operand)
+void operand_to_string(enum e_operator operand, char *rep)
 {
   switch (operand)
   {
     case PLUS:
-      printf("+");
+      strcat(rep, "+");
       break;
     case MINUS:
-      printf("-");
+      strcat(rep, "-");
       break;
     case TIME:
-      printf("*");
+      strcat(rep, "*");
       break;
     case EQUAL:
-      printf("=");
+      strcat(rep, "=");
       break;
     default:
       printf("   ERROR   ");
