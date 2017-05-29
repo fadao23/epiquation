@@ -19,21 +19,18 @@ struct s_tree *deriv (struct s_tree *node)
 	return NULL;
 }
 
-/*
 struct s_tree *deriv_func (struct s_tree *node)
 {
-  struct s_tree *new;
-  if (node->data->funcction == EXP)
+  if (node->data->function == EXP)
 	{
-		new = build_operator("*");
-		new->left = deriv(node->data->param) * node->data->mult;
-		new->right = node;
-	}
+	  return deriv_exp(node);
+  }
 	if (node->data->funcction == LN)
 	{
 		new = build_operator("*");
-		new->left = deriv(node->data->param) * node->data->mult; //mult ln(2x^2) ??
-		new->right-> = node->data->param; // ?
+    new->left = deriv(node->left);
+		new->right = build_function("pow");
+    new->right-> = node->data->param; // ?
 		new->right->power = -1;
 	}
 	if (node->data->funcction == SQRT || POW)
@@ -42,13 +39,14 @@ struct s_tree *deriv_func (struct s_tree *node)
 		new->left = deriv(node->data->param)
 	}
 }
-*/
+
 
 struct s_tree *deriv_var (struct s_tree *node)
 {
 	struct s_tree *new = build_variable(node->data->name);
-	new->data->mult = node->data->mult * node->data->power;
-	new->data->power = node->data->power - 1;
+	((struct s_var*)new->data)->mult 
+    = ((struct s_var*) node->data)->mult * ((struct s_var*)node->data)->power;
+	((struct s_var*)new->data)->power = ((struct s_var*) node->data)->power - 1;
 	return new;
 }
 
