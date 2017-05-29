@@ -13,11 +13,14 @@ void _tree_to_string(struct s_tree *tree)
   switch (tree->type)
   {
     case OPERAND:
-      printf("(");
+      enum e_operator cur = *((enum e_operator*)tree->data);
+      if (cur == PLUS)
+        printf("(");
       _tree_to_string(tree->left);
-      operand_to_string(*((char*)tree->data));
+      operand_to_string(cur);
       _tree_to_string(tree->right);
-      printf(")");
+      if (cur == PLUS)
+        printf(")");
       break;
     case FUNCTION:
       function_to_string(*(((struct s_function*)tree->data)->function));
