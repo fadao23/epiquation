@@ -1,6 +1,5 @@
 # include "derivate.h"
 
-
 int contain_var (struct s_tree *node)
 {
   if (node)

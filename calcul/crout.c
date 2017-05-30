@@ -17,7 +17,7 @@ void ludcmp(float *a, int n, int *indx)
 		indx -> vecteur qui sauvegarde les permutations
 		d -> vaut 1 si le nombre de permutation et pair, -1 sinon
 	*/
-  int i,imax,j,k;
+  int i,imax=0,j,k;
   float big,dum,sum,temp;
   float *vv;         //vv contient le coef multiplicateur de chaque ligne.
   vv=vector(n);

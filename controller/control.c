@@ -68,12 +68,12 @@ char *solve_system(char **system, int n) {
 
   ludcmp(matrix, n, indx);
   lubksb(matrix, n, indx, res);
-  char *s = calloc(100, sizeof (char));
+  char *s = calloc(200, sizeof (char));
   for (int i = 0; i < n; ++i) {
     strncat(s, (var + i), 1);
     strcat(s, " = ");
     char *tmp = calloc(20, sizeof (char));
-    sprintf(tmp, "%f\n", *(res + i));
+    sprintf(tmp, "%03.2f\n", *(res + i));
     strcat(s, tmp);
   }
 
