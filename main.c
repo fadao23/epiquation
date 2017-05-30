@@ -195,10 +195,9 @@ void on_Dapply_clicked()
   gtk_label_set_text(D_out,str);
   char *copie = calloc(200,sizeof(char));
   strcpy(copie,str);
-  derivate_equation(copie);
-  //char *res = derivate_equation(copie);
-  /*gtk_label_set_text(out2, res);
+  char *res = derivate_equation(copie);
+  gtk_label_set_text(out2, res);
   gtk_entry_set_text(entry,"");
   free(copie);
-  free(res);*/
+  free(res);
 }

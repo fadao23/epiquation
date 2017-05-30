@@ -120,9 +120,9 @@ char *derivate_equation(char *arg) {
   }
 
   //char *r = calloc(200,sizeof(char));
-  tree_to_string(res);
+  char *res = tree_to_string(res);
   free_tree(node);
   set_erreur(0);
-  return "";
+  return res;
 }
 
