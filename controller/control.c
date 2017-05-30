@@ -105,12 +105,12 @@ char *derivate_equation(char *arg) {
   float coef = 1;
 
   simplify_mult(&node, NULL, &coef, 0);
-
+  coef = 1;
   simplify_plus(&node, NULL, &coef, 0);
   simplify_pow(&node);
   tree_to_string(node);
   struct s_tree *res = deriv(node);
-  
+
   if (*(err = get_erreur()))
   {
     char *s_err = get_string_erreur(*err);
@@ -118,11 +118,11 @@ char *derivate_equation(char *arg) {
     free_tree(node);
     return s_err;
   }
-
   //char *r = calloc(200,sizeof(char));
-  char *res = tree_to_string(res);
+  char *rep = tree_to_string(res);
+  printf("String : %s\n", rep);
   free_tree(node);
   set_erreur(0);
-  return res;
+  return rep;
 }
 

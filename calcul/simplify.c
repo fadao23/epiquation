@@ -194,7 +194,7 @@ void simplify_pow(struct s_tree **node) {
   if(!*node)
     return;
   if ((*node)->type == FUNCTION && (*((struct s_function*)(*node)->data)->function == POW)) {
-    if ((*node)->left->type == VARIABLE) {
+    if ((*node)->left->type == VARIABLE && ((struct s_function*)(*node)->data)->mult == 1) {
       ((struct s_variable*)(*node)->left->data)->power *= ((struct s_function*)(*node)->data)->param;
       (*node) = (*node)->left;
     }

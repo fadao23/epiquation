@@ -178,7 +178,7 @@ void on_cancel_sys_clicked()
 }
 
 
-/* --------------------------- DER/PRI ----------------------------*/
+/* --------------------------- DER ----------------------------*/
 
 void on_Dcancel_clicked()
 {
@@ -190,14 +190,11 @@ void on_Dcancel_clicked()
 
 void on_Dapply_clicked()
 {
-
   const gchar *str = gtk_entry_get_text(D_entry);
   gtk_label_set_text(D_out,str);
   char *copie = calloc(200,sizeof(char));
   strcpy(copie,str);
   char *res = derivate_equation(copie);
-  gtk_label_set_text(out2, res);
-  gtk_entry_set_text(entry,"");
+  gtk_label_set_text(D_out, res);
   free(copie);
-  free(res);
 }

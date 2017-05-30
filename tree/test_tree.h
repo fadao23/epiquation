@@ -11,11 +11,11 @@
 # include "tree.h"
 
 
-void tree_to_string(struct s_tree *tree);
+char *tree_to_string(struct s_tree *tree);
 
-void _tree_to_string(struct s_tree *tree);
+void _tree_to_string(struct s_tree *tree, char *rep);
 
-void function_to_string(enum e_function function);
+void function_to_string(enum e_function function, char *rep);
 
-void operand_to_string(enum e_operator operand);
+void operand_to_string(enum e_operator operand, char *rep);
 # endif /*_EPIQUATION_TEST_TREE_H_*/

@@ -3,7 +3,7 @@
 char *tree_to_string(struct s_tree *tree)
 {
   char *rep = calloc(200, sizeof (char));
-  _tree_to_string(tree);
+  _tree_to_string(tree, rep);
   return rep;
 }
 
@@ -16,22 +16,22 @@ void _tree_to_string(struct s_tree *tree, char *rep)
     case OPERAND:
       if (*((enum e_operator*)tree->data) == PLUS)
         strcat(rep, "(");
-      _tree_to_string(tree->left);
-      operand_to_string(*((enum e_operator*)tree->data));
-      _tree_to_string(tree->right);
+      _tree_to_string(tree->left, rep);
+      operand_to_string(*((enum e_operator*)tree->data), rep);
+      _tree_to_string(tree->right, rep);
       if (*((enum e_operator*)tree->data) == PLUS)
         strcat(rep, ")");
       break;
     case FUNCTION:
-      function_to_string(*(((struct s_function*)tree->data)->function));
+      function_to_string(*(((struct s_function*)tree->data)->function), rep);
       strcat(rep, "(");
-      _tree_to_string(tree->left);
-      if(tree->right != NULL)
+      _tree_to_string(tree->left, rep);
+      if(*(((struct s_function*)tree->data)->function) == POW)
       {
-        strcat(rep, ",");
-        _tree_to_string(tree->right);
+        sprintf(rep, "%s)^%03.2f", rep, ((struct s_function*)tree->data)->param);
       }
-      strcat(rep, ")");
+      else
+        strcat(rep, ")");
       break;
     case VARIABLE:
       sprintf(rep, "%s%.1f%c",rep, ((struct s_variable*)tree->data)->mult,
@@ -59,7 +59,6 @@ void function_to_string(enum e_function function, char *rep)
       strcat(rep, "sqrt");
       break;
     case POW:
-      strcat(rep, "pow");
       break;
     case COS:
       strcat(rep, "cos");
